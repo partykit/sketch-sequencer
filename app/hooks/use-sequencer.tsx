@@ -1,6 +1,8 @@
 import { useMemo } from "react";
-import Provider from "y-partykit/provider";
-import { Doc } from "yjs";
+import YPartyKitProvider from "y-partykit/provider";
+import { syncedStore, getYjsDoc } from "@syncedstore/core";
+import { docShape } from "party/sequencer-shared";
+import { useSyncedStore } from "@syncedstore/react";
 
 const PARTY = "sequencer";
 
@@ -9,12 +11,16 @@ export default function useSequencer(props: {
   room: string;
 }) {
   const { partykitHost, room } = props;
+  const store = syncedStore(docShape);
+  const state = useSyncedStore(store);
 
-  const { ydoc, provider } = useMemo(() => {
-    const ydoc = new Doc();
-    const provider = new Provider(partykitHost, room, ydoc, {
+  const { provider } = useMemo(() => {
+    const ydoc = getYjsDoc(store);
+    const provider = new YPartyKitProvider(partykitHost, room, ydoc, {
       party: PARTY,
     });
-    return { ydoc, provider };
+    return { provider };
   }, []);
+
+  return { state };
 }
