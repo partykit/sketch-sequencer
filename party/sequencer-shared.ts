@@ -8,15 +8,15 @@ export const TRACK_LENGTH = 16;
 export const TrackConfig: Record<string, Track> = {
   kick: {
     name: "Kick",
-    color: "#ff0000",
+    color: "#ec5c3d",
   },
   snare: {
     name: "Snare",
-    color: "#00ff00",
+    color: "#e34a71",
   },
-  hihat: {
-    name: "HiHat",
-    color: "#0000ff",
+  hat: {
+    name: "Hat",
+    color: "#6faed7",
   },
 };
 

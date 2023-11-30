@@ -1,4 +1,6 @@
 import useSequencer from "~/hooks/use-sequencer";
+import { TrackConfig } from "party/sequencer-shared";
+import Track from "~/components/Track";
 
 export default function Sequencer(props: {
   partykitHost: string;
@@ -11,6 +13,16 @@ export default function Sequencer(props: {
   const handleToggle = () => {
     setStep("kick", 0, !kickSteps[0]);
   };
+
+  const trackIds = Object.keys(TrackConfig);
+
+  return (
+    <>
+      {trackIds.map((trackId, index) => (
+        <Track key={index} trackId={trackId} />
+      ))}
+    </>
+  );
 
   return (
     <div>
