@@ -19,7 +19,14 @@ export default function Sequencer(props: {
   return (
     <>
       {trackIds.map((trackId, index) => (
-        <Track key={index} trackId={trackId} />
+        <Track
+          key={index}
+          trackId={trackId}
+          steps={getSteps(trackId)}
+          setStep={(step: number, value: boolean) =>
+            setStep(trackId, step, value)
+          }
+        />
       ))}
     </>
   );
