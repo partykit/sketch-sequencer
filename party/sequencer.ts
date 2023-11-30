@@ -19,7 +19,7 @@ export default class SequencerServer implements Party.Server {
   }
 
   handleYDocChange(doc: Doc) {
-    console.log("ydoc changed");
+    //console.log("ydoc changed");
     // called on every ydoc change
     // no-op
   }
