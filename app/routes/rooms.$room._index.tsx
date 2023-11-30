@@ -1,3 +1,4 @@
+import "~/styles/global.css";
 import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import Sequencer from "~/components/Sequencer";
@@ -11,8 +12,16 @@ export default function Games() {
   const { room, partykitHost } = useLoaderData<typeof loader>();
 
   return (
-    <main className="p-6 bg-stone-100" style={{ minHeight: "100dvh" }}>
-      <Sequencer partykitHost={partykitHost} room={room} />
-    </main>
+    <>
+      <header>
+        <h1>PartyCore.</h1>
+      </header>
+
+      <main style={{ minHeight: "100dvh" }}>
+        <section id="sequencer">
+          <Sequencer partykitHost={partykitHost} room={room} />
+        </section>
+      </main>
+    </>
   );
 }
