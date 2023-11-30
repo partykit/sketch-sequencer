@@ -1,0 +1,37 @@
+{
+  "name": "sketch-sequencer",
+  "private": true,
+  "description": "🎈 PartyKit ⤫ Remix 💿",
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "rimraf build && rimraf public/build && remix build",
+    "check": "tsc --noEmit",
+    "deploy": "npm run build && partykit deploy",
+    "dev": "remix dev --manual -c \"npm start\" --port 8002",
+    "start": "partykit dev"
+  },
+  "dependencies": {
+    "@remix-run/css-bundle": "^2.3.0",
+    "@remix-run/react": "^2.3.0",
+    "isbot": "^3.7.1",
+    "partymix": "^0.0.7",
+    "partysocket": "0.0.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.3.0",
+    "@remix-run/eslint-config": "^2.3.0",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.16",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "partykit": "^0.0.39",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.17.1"
+  }
+}
