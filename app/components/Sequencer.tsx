@@ -26,6 +26,8 @@ export default function Sequencer(props: {
           setStep={(step: number, value: boolean) =>
             setStep(trackId, step, value)
           }
+          range={getRange(trackId)}
+          setRange={(range: number[]) => setRange(trackId, range)}
         />
       ))}
     </>

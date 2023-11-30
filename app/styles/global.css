@@ -11,18 +11,6 @@
   --deactivated: rgba(127.5,127.5,127.5,0.3);
 }
 
-#track-1 {
-  --ui-color: #ec5c3d;
-}
-
-#track-2 {
-  --ui-color: #e34a71;
-}
-
-#track-3 {
-  --ui-color: #6faed7;
-}
-
 html {
   position: absolute;
   top: 0;
