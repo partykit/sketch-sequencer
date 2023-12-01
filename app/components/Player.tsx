@@ -57,7 +57,7 @@ export default function Player(props: { tracks: Record<string, Track> }) {
       console.log("Creating track", trackID, track);
       sequences[trackID] = new Tone.Sequence(
         (time, step) => {
-          if (true || track.steps[step]) {
+          if (track.steps[step]) {
             console.log("Playing", trackID, step, time);
             players[trackID].start(time);
           }
