@@ -4,6 +4,7 @@ import {
   TrackConfig,
   TrackRange,
   ClickTrackConfig,
+  TRACK_LENGTH,
 } from "party/sequencer-shared";
 
 type Track = {
@@ -13,7 +14,7 @@ type Track = {
 
 // Config
 const BPM = 140;
-const ENABLE_CLICK_TRACK = false;
+const ENABLE_CLICK_TRACK = true;
 
 function equalSteps(a: boolean[], b: boolean[]) {
   return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -57,12 +58,16 @@ export default function Player(props: {
   useEffect(() => {
     // Set BPM
     Tone.Transport.bpm.value = BPM;
+    //Tone.Transport.loop = true;
+    //Tone.Transport.loopStart = "0:0:0";
+    //Tone.Transport.loopEnd = `${(TRACK_LENGTH / 16).toString()}:0:0`;
   }, []);
 
   useEffect(() => {
     // Set up the click track
     let clickSequence: Tone.Sequence | null = null;
     if (ENABLE_CLICK_TRACK && players._click) {
+      console.log("Setting up click track");
       clickSequence = new Tone.Sequence(
         (time, step) => {
           if (step % 4 === 0) {
@@ -90,19 +95,30 @@ export default function Player(props: {
       // We can't do anything if there's no sample
       if (!players[trackID]) return;
 
+      console.log("Evaluating track", trackID, track.steps, track.range);
+
       // Decide whether the data has changed. If there's no change
       // then don't change the sequence
+      // BUG: this step sequencer works! But only if the sequences
+      // are being re-created (and therefore scheduled) every single re-render
+      // But if the following block is uncommented... it doesn't work,
+      // and we only hear sounds if we start turning the steps on and off
+      // and that coincides with transport's loop
+      // HOWEVER! the click track works happily, without needing a re-render
+      // to schedule it
       /*
       if (
         tracksRef.current[trackID] &&
         equalSteps(tracksRef.current[trackID].steps, track.steps) &&
         equalRange(tracksRef.current[trackID].range, track.range)
       ) {
+        console.log("No change", trackID);
         return;
       }
       */
 
       if (sequences[trackID]) {
+        console.log("disposing", trackID);
         sequences[trackID].dispose(); // dispose of the old sequence
       }
 
@@ -112,10 +128,11 @@ export default function Player(props: {
         (_, i) => i + track.range.lower
       );
 
+      console.log("Setting up sequence", trackID, sequenceSteps);
       sequences[trackID] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
-            //console.log("Playing", trackID, step, time);
+            console.log("Playing", trackID, step, time);
             players[trackID].start(time);
           }
           markActive(trackID, step);
@@ -142,6 +159,16 @@ export default function Player(props: {
     if (playing) {
       Tone.Transport.start();
       console.log("Started transport", Tone.Transport.state);
+      console.log(
+        "seconds",
+        Tone.Transport.seconds,
+        "loop",
+        Tone.Transport.loop,
+        "loopStart",
+        Tone.Transport.loopStart,
+        "loopEnd",
+        Tone.Transport.loopEnd
+      );
     } else {
       Tone.Transport.stop();
       markAllInactive();
