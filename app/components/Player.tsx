@@ -13,7 +13,7 @@ type Track = {
 
 // Config
 const BPM = 140;
-const ENABLE_CLICK_TRACK = true;
+const ENABLE_CLICK_TRACK = false;
 
 function equalSteps(a: boolean[], b: boolean[]) {
   return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -134,21 +134,19 @@ export default function Player(props: {
     };
   }, [players, tracks]);
 
-  const togglePlaying = () => {
-    Tone.start();
-    setPlaying((prev) => {
-      const newPlaying = !prev;
-      if (newPlaying) {
-        Tone.start(); // Required to start audio context
-        Tone.Transport.start();
-        console.log("Started transport", Tone.Transport.state);
-      } else {
-        Tone.Transport.stop();
-        markAllInactive();
-      }
-      return newPlaying;
-    });
-  };
+  useEffect(() => {
+    if (prepared) {
+      Tone.start();
+    }
+
+    if (playing) {
+      Tone.Transport.start();
+      console.log("Started transport", Tone.Transport.state);
+    } else {
+      Tone.Transport.stop();
+      markAllInactive();
+    }
+  }, [prepared, playing]);
 
   return (
     <div>
@@ -156,7 +154,9 @@ export default function Player(props: {
         <button onClick={() => setPrepared(true)}>Allow Audio</button>
       )}
       {prepared === true && (
-        <button onClick={togglePlaying}>{playing ? "Pause" : "Play"}</button>
+        <button onClick={() => setPlaying((prev) => !prev)}>
+          {playing ? "Pause" : "Play"}
+        </button>
       )}
     </div>
   );
