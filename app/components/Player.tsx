@@ -15,6 +15,7 @@ const BPM = 120;
 
 export default function Player(props: { tracks: Record<string, Track> }) {
   const { tracks } = props;
+  const [prepared, setPrepared] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   // Initialize the players object
@@ -41,24 +42,26 @@ export default function Player(props: { tracks: Record<string, Track> }) {
     const sequences = {} as Record<string, Tone.Sequence>;
 
     // Click track
-    sequences._click = new Tone.Sequence(
-      (time, step) => {
-        if (step % 4 === 0) {
-          console.log("Click should play now", step, time);
-          players._click.start(time);
-        }
-      },
-      Array.from(Array(16).keys()),
-      "16n"
-    );
-    sequences._click.start(0);
+    if (players._click) {
+      sequences._click = new Tone.Sequence(
+        (time, step) => {
+          if (step % 4 === 0) {
+            //console.log("Click should play now", step, time);
+            players._click.start(time);
+          }
+        },
+        Array.from(Array(16).keys()),
+        "16n"
+      );
+      sequences._click.start(0);
+    }
 
     Object.entries(tracks).forEach(([trackID, track]) => {
-      console.log("Creating track", trackID, track);
+      if (!players[trackID]) return;
       sequences[trackID] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
-            console.log("Playing", trackID, step, time);
+            //console.log("Playing", trackID, step, time);
             players[trackID].start(time);
           }
         },
@@ -73,7 +76,7 @@ export default function Player(props: { tracks: Record<string, Track> }) {
         seq.dispose();
       }
     };
-  }, [tracks]);
+  }, [players, tracks]);
 
   const togglePlaying = () => {
     Tone.start();
@@ -92,10 +95,12 @@ export default function Player(props: { tracks: Record<string, Track> }) {
 
   return (
     <div>
-      <button onClick={togglePlaying}>{playing ? "Stop" : "Play"}</button>
-      <a href="#" onClick={() => Tone.start()}>
-        click to start
-      </a>
+      {prepared === false && (
+        <button onClick={() => setPrepared(true)}>Allow Audio</button>
+      )}
+      {prepared === true && (
+        <button onClick={togglePlaying}>{playing ? "Pause" : "Play"}</button>
+      )}
     </div>
   );
 }
