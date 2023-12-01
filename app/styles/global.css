@@ -10,6 +10,7 @@
   --background-color: #222;
   --deactivated: rgba(127.5,127.5,127.5,0.3);
   --slider-track: rgba(127.5,127.5,127.5,0.15);
+  --step-width: calc(100% / 15);
 }
 
 html {
@@ -148,6 +149,8 @@ main {
   flex-direction: row;
   align-items: center;
   gap: 0;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .steps {
@@ -171,9 +174,52 @@ main {
   border: 1.5px solid;
   border-radius: 27px;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   font-size: 28px;
 }
+
+.track[data-loop-start="0"] label:nth-child(1),
+.track[data-loop-start="0"] label:nth-child(1) ~ label,
+.track[data-loop-start="1"] label:nth-child(1) ~ label,
+.track[data-loop-start="2"] label:nth-child(2) ~ label,
+.track[data-loop-start="3"] label:nth-child(3) ~ label,
+.track[data-loop-start="4"] label:nth-child(4) ~ label,
+.track[data-loop-start="5"] label:nth-child(5) ~ label,
+.track[data-loop-start="6"] label:nth-child(6) ~ label,
+.track[data-loop-start="7"] label:nth-child(7) ~ label,
+.track[data-loop-start="8"] label:nth-child(8) ~ label,
+.track[data-loop-start="9"] label:nth-child(9) ~ label,
+.track[data-loop-start="10"] label:nth-child(10) ~ label,
+.track[data-loop-start="11"] label:nth-child(11) ~ label,
+.track[data-loop-start="12"] label:nth-child(12) ~ label,
+.track[data-loop-start="13"] label:nth-child(13) ~ label,
+.track[data-loop-start="14"] label:nth-child(14) ~ label,
+.track[data-loop-start="15"] label:nth-child(15) ~ label {
+  opacity: 1;
+}
+
+
+.steps label,
+.track[data-loop-end="0"] label:nth-child(1) ~ label,
+.track[data-loop-end="1"] label:nth-child(2) ~ label,
+.track[data-loop-end="2"] label:nth-child(3) ~ label,
+.track[data-loop-end="3"] label:nth-child(4) ~ label,
+.track[data-loop-end="4"] label:nth-child(5) ~ label,
+.track[data-loop-end="5"] label:nth-child(6) ~ label,
+.track[data-loop-end="6"] label:nth-child(7) ~ label,
+.track[data-loop-end="7"] label:nth-child(8) ~ label,
+.track[data-loop-end="8"] label:nth-child(9) ~ label,
+.track[data-loop-end="9"] label:nth-child(10) ~ label,
+.track[data-loop-end="10"] label:nth-child(11) ~ label,
+.track[data-loop-end="11"] label:nth-child(12) ~ label,
+.track[data-loop-end="12"] label:nth-child(13) ~ label,
+.track[data-loop-end="13"] label:nth-child(14) ~ label,
+.track[data-loop-end="14"] label:nth-child(15) ~ label,
+.track[data-loop-end="15"] label:nth-child(16) ~ label {
+  opacity: 0.4;
+}
+
 
 .steps label input {
   position: absolute;
@@ -240,6 +286,7 @@ main {
   transform: 0s;
 }
 
+
 /* slider styles */
 /* See: https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
 
@@ -256,7 +303,109 @@ main {
   top: 0;
   height: 5px;
   background: var(--ui-color);
+/*   z-index: 10; */
 }
+
+.track[data-loop-start="0"] .slider:after {
+  left: calc(var(--step-width) * 0);
+}
+.track[data-loop-start="1"] .slider:after {
+  left: calc(var(--step-width) * 1);
+}
+.track[data-loop-start="2"] .slider:after {
+  left: calc(var(--step-width) * 2);
+}
+.track[data-loop-start="3"] .slider:after {
+  left: calc(var(--step-width) * 3);
+}
+.track[data-loop-start="4"] .slider:after {
+  left: calc(var(--step-width) * 4);
+}
+.track[data-loop-start="5"] .slider:after {
+  left: calc(var(--step-width) * 5);
+}
+.track[data-loop-start="6"] .slider:after {
+  left: calc(var(--step-width) * 6);
+}
+.track[data-loop-start="7"] .slider:after {
+  left: calc(var(--step-width) * 7);
+}
+.track[data-loop-start="8"] .slider:after {
+  left: calc(var(--step-width) * 8);
+}
+.track[data-loop-start="9"] .slider:after {
+  left: calc(var(--step-width) * 9);
+}
+.track[data-loop-start="10"] .slider:after {
+  left: calc(var(--step-width) * 10);
+}
+.track[data-loop-start="11"] .slider:after {
+  left: calc(var(--step-width) * 11);
+}
+.track[data-loop-start="12"] .slider:after {
+  left: calc(var(--step-width) * 12);
+}
+.track[data-loop-start="13"] .slider:after {
+  left: calc(var(--step-width) * 13);
+}
+.track[data-loop-start="14"] .slider:after {
+  left: calc(var(--step-width) * 14);
+}
+.track[data-loop-start="15"] .slider:after {
+  left: calc(var(--step-width) * 15);
+}
+
+
+.track[data-loop-end="0"] .slider:after {
+  right: calc(var(--step-width) * 15);
+}
+.track[data-loop-end="1"] .slider:after {
+  right: calc(var(--step-width) * 14);
+}
+.track[data-loop-end="2"] .slider:after {
+  right: calc(var(--step-width) * 13);
+}
+.track[data-loop-end="3"] .slider:after {
+  right: calc(var(--step-width) * 12);
+}
+.track[data-loop-end="4"] .slider:after {
+  right: calc(var(--step-width) * 11);
+}
+.track[data-loop-end="5"] .slider:after {
+  right: calc(var(--step-width) * 10);
+}
+.track[data-loop-end="6"] .slider:after {
+  right: calc(var(--step-width) * 9);
+}
+.track[data-loop-end="7"] .slider:after {
+  right: calc(var(--step-width) * 8);
+}
+.track[data-loop-end="8"] .slider:after {
+  right: calc(var(--step-width) * 7);
+}
+.track[data-loop-end="9"] .slider:after {
+  right: calc(var(--step-width) * 6);
+}
+.track[data-loop-end="10"] .slider:after {
+  right: calc(var(--step-width) * 5);
+}
+.track[data-loop-end="11"] .slider:after {
+  right: calc(var(--step-width) * 4);
+}
+.track[data-loop-end="12"] .slider:after {
+  right: calc(var(--step-width) * 3);
+}
+.track[data-loop-end="13"] .slider:after {
+  right: calc(var(--step-width) * 2);
+}
+.track[data-loop-end="14"] .slider:after {
+  right: calc(var(--step-width) * 1);
+}
+.track[data-loop-end="15"] .slider:after {
+  right: calc(var(--step-width) * 0);
+}
+
+
 
 .slider input[type="range"] {
   -webkit-appearance: none;
@@ -287,13 +436,10 @@ main {
   -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
   margin-top: -5px; /* Centers thumb on the track */
   height: 15px;
-  width: 20px;
-  border-left: 2px solid var(--ui-color);
-}
-
-.slider input + input[type="range"]::-webkit-slider-thumb {
-  border-left: none;
-  border-right: 2px solid var(--ui-color);
+  width: 0px;
+  border-left: 1px solid var(--ui-color);
+  border-right: 1px solid var(--ui-color);
+/*   z-index: 20; */
 }
 
 /* Targeting the thumb */
@@ -302,13 +448,9 @@ main {
   -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
   margin-top: -5px; /* Centers thumb on the track */
   height: 15px;
-  width: 20px;
+  width: 0px;
   border-left: 2px solid var(--ui-color);
-}
-
-.slider input + input[type="range"]::-moz-range-thumb {
-  border-left: none;
-  border-right: 2px solid var(--ui-color);
+/*   z-index: 20; */
 }
 
 /* [OLD] slider styles */
