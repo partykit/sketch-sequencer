@@ -19,7 +19,7 @@ export function loader({ params }: LoaderFunctionArgs): LoaderData {
 export const meta: MetaFunction = ({ data }) => {
   return [
     { title: `partycore | ${(data as LoaderData).room}` },
-    { name: "description", content: "never less than 160bpm™" },
+    { name: "description", content: "never less than 140bpm™" },
   ];
 };
 
@@ -49,7 +49,7 @@ export default function Games() {
 
       <footer>
         <p>
-          <strong>Never less than 160bpm&trade;</strong> because everything’s
+          <strong>Never less than 140bpm&trade;</strong> because everything’s
           better with friends, 2023.
         </p>
       </footer>

@@ -16,7 +16,12 @@ export default function Track(props: {
   if (!track) return null;
 
   return (
-    <div className="track" style={{ "--ui-color": track.color } as any}>
+    <div
+      className="track"
+      style={{ "--ui-color": track.color } as any}
+      data-loop-start={range.lower}
+      data-loop-end={range.upper}
+    >
       <h2>
         <span>{track.name}</span>
       </h2>
