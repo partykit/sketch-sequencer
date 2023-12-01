@@ -31,7 +31,7 @@ export default function Slider(props: {
 
   return (
     <div
-      style={{ position: "relative", width: "600px", backgroundColor: "red" }}
+      style={{ position: "relative", width: "902px", backgroundColor: "red" }}
     >
       <input
         type="range"

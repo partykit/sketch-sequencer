@@ -52,12 +52,22 @@ export default function Player(props: { tracks: Record<string, Track> }) {
         },
         Array.from(Array(16).keys()),
         "16n"
-      );
-      sequences._click.start(0);
+      ).start(0);
     }
 
     Object.entries(tracks).forEach(([trackID, track]) => {
       if (!players[trackID]) return;
+
+      const sequenceLength = track.range.upper - track.range.lower + 1;
+      const sequenceSteps = Array.from(
+        { length: sequenceLength },
+        (_, i) => i + track.range.lower
+      );
+
+      if (sequences[trackID]) {
+        sequences[trackID].dispose(); // dispose of the old sequence
+      }
+
       sequences[trackID] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
@@ -65,10 +75,9 @@ export default function Player(props: { tracks: Record<string, Track> }) {
             players[trackID].start(time);
           }
         },
-        Array.from(Array(16).keys()),
+        sequenceSteps,
         "16n"
-      );
-      sequences[trackID].start(0);
+      ).start(track.range.lower * Tone.Time("4n").toSeconds());
     });
 
     return () => {
