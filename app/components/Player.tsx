@@ -12,7 +12,7 @@ type Track = {
 };
 
 // Config
-const BPM = 150;
+const BPM = 140;
 const ENABLE_CLICK_TRACK = false;
 
 export default function Player(props: {
