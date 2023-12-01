@@ -220,6 +220,27 @@ main {
   opacity: 0.4;
 }
 
+@media (prefers-color-scheme: light) {
+  .steps label,
+  .track[data-loop-end="0"] label:nth-child(1) ~ label,
+  .track[data-loop-end="1"] label:nth-child(2) ~ label,
+  .track[data-loop-end="2"] label:nth-child(3) ~ label,
+  .track[data-loop-end="3"] label:nth-child(4) ~ label,
+  .track[data-loop-end="4"] label:nth-child(5) ~ label,
+  .track[data-loop-end="5"] label:nth-child(6) ~ label,
+  .track[data-loop-end="6"] label:nth-child(7) ~ label,
+  .track[data-loop-end="7"] label:nth-child(8) ~ label,
+  .track[data-loop-end="8"] label:nth-child(9) ~ label,
+  .track[data-loop-end="9"] label:nth-child(10) ~ label,
+  .track[data-loop-end="10"] label:nth-child(11) ~ label,
+  .track[data-loop-end="11"] label:nth-child(12) ~ label,
+  .track[data-loop-end="12"] label:nth-child(13) ~ label,
+  .track[data-loop-end="13"] label:nth-child(14) ~ label,
+  .track[data-loop-end="14"] label:nth-child(15) ~ label,
+  .track[data-loop-end="15"] label:nth-child(16) ~ label {
+    opacity: 0.5;
+  }
+}
 
 .steps label input {
   position: absolute;
