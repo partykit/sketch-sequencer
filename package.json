@@ -1,7 +1,7 @@
 {
-  "name": "sketch-sequencer",
+  "name": "partycore",
   "private": true,
-  "description": "🎈 PartyKit ⤫ Remix 💿",
+  "description": "160bpm multiplayer sequencer",
   "sideEffects": false,
   "type": "module",
   "scripts": {

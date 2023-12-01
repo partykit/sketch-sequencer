@@ -10,8 +10,8 @@ export function loader() {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Partymix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "partycore" },
+    { name: "description", content: "never less than 160bpm™" },
   ];
 };
 
