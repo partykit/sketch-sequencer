@@ -1,4 +1,4 @@
-import { TrackConfig } from "party/sequencer-shared";
+import { TrackConfig, TrackRange } from "party/sequencer-shared";
 import Step from "./Step";
 import Slider from "./Slider";
 
@@ -6,8 +6,8 @@ export default function Track(props: {
   trackId: string;
   steps: boolean[];
   setStep: (step: number, value: boolean) => void;
-  range: number[];
-  setRange: (range: number[]) => void;
+  range: TrackRange;
+  setRange: (range: TrackRange) => void;
 }) {
   const { trackId, steps, setStep, range, setRange } = props;
   const track = TrackConfig[trackId];
@@ -30,7 +30,7 @@ export default function Track(props: {
         ))}
       </div>
       <div className="loop-range">
-        <Slider lower={range[0]} upper={range[1]} onChange={setRange} />
+        <Slider range={range} setRange={setRange} />
       </div>
     </div>
   );

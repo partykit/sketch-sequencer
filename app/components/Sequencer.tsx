@@ -1,5 +1,5 @@
 import useSequencer from "~/hooks/use-sequencer";
-import { TrackConfig } from "party/sequencer-shared";
+import { TrackConfig, TrackRange } from "party/sequencer-shared";
 import Track from "~/components/Track";
 
 export default function Sequencer(props: {
@@ -27,7 +27,7 @@ export default function Sequencer(props: {
             setStep(trackId, step, value)
           }
           range={getRange(trackId)}
-          setRange={(range: number[]) => setRange(trackId, range)}
+          setRange={(range: TrackRange) => setRange(trackId, range)}
         />
       ))}
     </>

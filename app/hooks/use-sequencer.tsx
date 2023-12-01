@@ -3,7 +3,7 @@ import YPartyKitProvider from "y-partykit/provider";
 import { syncedStore, getYjsDoc, getYjsValue } from "@syncedstore/core";
 import { docShape } from "party/sequencer-shared";
 import { useSyncedStore } from "@syncedstore/react";
-import { TrackConfig, TRACK_LENGTH } from "party/sequencer-shared";
+import { TrackConfig, TRACK_LENGTH, TrackRange } from "party/sequencer-shared";
 import * as Y from "yjs";
 
 const PARTY = "sequencer";
@@ -51,30 +51,29 @@ export default function useSequencer(props: {
 
   const getRange = (trackId: string) => {
     // range is an object with lower and upper properties
-    const range = [0, TRACK_LENGTH - 1];
+    const range = {
+      lower: 0,
+      upper: TRACK_LENGTH - 1,
+    } as TrackRange;
     if (trackId in TrackConfig) {
-      const lower = state[`${trackId}Range`].lower ?? 0;
-      const upper = state[`${trackId}Range`].upper ?? TRACK_LENGTH - 1;
-      console.log("getRange", lower, upper);
+      const lower = state[`${trackId}Range`].lower ?? range.lower;
+      const upper = state[`${trackId}Range`].upper ?? range.upper;
       // Start is bounded between 0 and TRACK_LENGTH - 1
-      range[0] = Math.min(Math.max(0, lower), TRACK_LENGTH - 1);
+      range.lower = Math.min(Math.max(0, lower), TRACK_LENGTH - 1);
       // End is bounded between start and TRACK_LENGTH - 1
-      range[1] = Math.min(Math.max(range[0], upper), TRACK_LENGTH - 1);
+      range.upper = Math.min(Math.max(lower, upper), TRACK_LENGTH - 1);
     }
-    console.log("returning range", range[0], range[1]);
     return range;
   };
 
-  const setRange = (trackId: string, range: number[]) => {
+  const setRange = (trackId: string, range: TrackRange) => {
     if (!(trackId in TrackConfig)) return;
-    if (range.length !== 2) return;
-    if (range[0] < 0 || range[0] > TRACK_LENGTH - 1) return;
-    if (range[1] < 0 || range[1] > TRACK_LENGTH - 1) return;
-    if (range[1] <= range[0]) return;
+    if (range.lower < 0 || range.lower > TRACK_LENGTH - 1) return;
+    if (range.upper < 0 || range.upper > TRACK_LENGTH - 1) return;
+    if (range.upper < range.lower) return;
 
-    console.log("setRange", trackId, range);
-    state[`${trackId}Range`].lower = range[0];
-    state[`${trackId}Range`].upper = range[1];
+    state[`${trackId}Range`].lower = range.lower;
+    state[`${trackId}Range`].upper = range.upper;
   };
 
   return { state, getSteps, setStep, getRange, setRange };

@@ -1,29 +1,33 @@
-import { useState } from "react";
-import { TRACK_LENGTH } from "party/sequencer-shared";
+import { useEffect, useState } from "react";
+import { TRACK_LENGTH, TrackRange } from "party/sequencer-shared";
 
 const MIN = 0;
 const MAX = TRACK_LENGTH - 1;
 
 export default function Slider(props: {
-  lower: number;
-  upper: number;
-  onChange: (values: [number, number]) => void;
+  range: TrackRange;
+  setRange: (range: TrackRange) => void;
 }) {
-  const { onChange } = props;
-  const [lowerValue, setLowerValue] = useState(props.lower);
-  const [upperValue, setUpperValue] = useState(props.upper);
+  const { setRange } = props;
+  const [lowerValue, setLowerValue] = useState(props.range.lower);
+  const [upperValue, setUpperValue] = useState(props.range.upper);
 
   const handleLowerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Math.min(Number(event.target.value), upperValue - 1);
     setLowerValue(newValue);
-    onChange([newValue, upperValue]);
+    setRange({ lower: newValue, upper: upperValue });
   };
 
   const handleUpperChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Math.max(Number(event.target.value), lowerValue + 1);
     setUpperValue(newValue);
-    onChange([lowerValue, newValue]);
+    setRange({ lower: lowerValue, upper: newValue });
   };
+
+  useEffect(() => {
+    setLowerValue(props.range.lower);
+    setUpperValue(props.range.upper);
+  }, [props.range]);
 
   return (
     <div
@@ -34,7 +38,7 @@ export default function Slider(props: {
         min={MIN}
         max={MAX}
         value={lowerValue}
-        onChange={handleLowerChange}
+        onChange={(e) => handleLowerChange(e)}
         style={{ position: "absolute", width: "100%", zIndex: 1 }}
       />
       <input
@@ -42,7 +46,7 @@ export default function Slider(props: {
         min={MIN}
         max={MAX}
         value={upperValue}
-        onChange={handleUpperChange}
+        onChange={(e) => handleUpperChange(e)}
         style={{ position: "absolute", width: "100%", zIndex: 2 }}
       />
     </div>

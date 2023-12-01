@@ -3,6 +3,11 @@ export type Track = {
   color: string;
 };
 
+export type TrackRange = {
+  lower: number;
+  upper: number;
+};
+
 export const TRACK_LENGTH = 16;
 
 export const TrackConfig: Record<string, Track> = {
