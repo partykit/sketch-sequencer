@@ -183,10 +183,12 @@ main {
   height: 8px;
   border-radius: 4px;
   background: var(--deactivated);
+  transition: ease 0.2s;
 }
 
 .steps label div.active:after {
   background: var(--ui-color);
+  transform: 0s;
 }
 
 /* slider styles */
@@ -195,6 +197,16 @@ main {
 .slider {
   margin-top: 10px;
   background-color: transparent!important;
+}
+
+.slider:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background: var(--ui-color);
 }
 
 .slider input[type="range"] {
@@ -228,7 +240,6 @@ main {
   height: 15px;
   width: 20px;
   border-left: 2px solid var(--ui-color);
-  border-radius: 1px;
 }
 
 .slider input + input[type="range"]::-webkit-slider-thumb {
@@ -244,7 +255,6 @@ main {
   height: 15px;
   width: 20px;
   border-left: 2px solid var(--ui-color);
-  border-radius: 1px;
 }
 
 .slider input + input[type="range"]::-moz-range-thumb {

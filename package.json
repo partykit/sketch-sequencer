@@ -1,7 +1,7 @@
 {
   "name": "partycore",
   "private": true,
-  "description": "160bpm multiplayer sequencer",
+  "description": "140bpm multiplayer sequencer",
   "sideEffects": false,
   "type": "module",
   "scripts": {

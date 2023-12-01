@@ -11,7 +11,7 @@ export function loader() {
 export const meta: MetaFunction = () => {
   return [
     { title: "partycore" },
-    { name: "description", content: "never less than 150bpm™" },
+    { name: "description", content: "never less than 140bpm™" },
   ];
 };
 
