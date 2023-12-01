@@ -9,6 +9,8 @@ export type TrackRange = {
   upper: number;
 };
 
+export type ActiveStep = Record<string, number | null>;
+
 export const TRACK_LENGTH = 16;
 
 export const TrackConfig: Record<string, Track> = {
