@@ -1,6 +1,7 @@
 export type Track = {
   name: string;
   color: string;
+  sample: string;
 };
 
 export type TrackRange = {
@@ -14,14 +15,17 @@ export const TrackConfig: Record<string, Track> = {
   kick: {
     name: "Kick",
     color: "#ec5c3d",
+    sample: "/assets/kick.wav",
   },
   snare: {
     name: "Snare",
     color: "#e34a71",
+    sample: "/assets/snare.wav",
   },
   hat: {
     name: "Hat",
     color: "#6faed7",
+    sample: "/assets/hat.wav",
   },
 };
 
