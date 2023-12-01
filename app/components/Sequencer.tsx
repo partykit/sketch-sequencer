@@ -7,7 +7,15 @@ export default function Sequencer(props: {
   partykitHost: string;
   room: string;
 }) {
-  const { state, getSteps, setStep, getRange, setRange } = useSequencer(props);
+  const {
+    getSteps,
+    setStep,
+    getRange,
+    setRange,
+    activeStep,
+    markActive,
+    markAllInactive,
+  } = useSequencer(props);
 
   const trackIds = Object.keys(TrackConfig);
 
@@ -32,9 +40,14 @@ export default function Sequencer(props: {
           }
           range={getRange(trackId)}
           setRange={(range: TrackRange) => setRange(trackId, range)}
+          activeStep={activeStep[trackId]}
         />
       ))}
-      <Player tracks={tracks} />
+      <Player
+        tracks={tracks}
+        markActive={markActive}
+        markAllInactive={markAllInactive}
+      />
     </>
   );
 }

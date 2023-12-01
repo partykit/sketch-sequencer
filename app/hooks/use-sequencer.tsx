@@ -1,10 +1,14 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import YPartyKitProvider from "y-partykit/provider";
 import { syncedStore, getYjsDoc, getYjsValue } from "@syncedstore/core";
 import { docShape } from "party/sequencer-shared";
 import { useSyncedStore } from "@syncedstore/react";
-import { TrackConfig, TRACK_LENGTH, TrackRange } from "party/sequencer-shared";
-import * as Y from "yjs";
+import {
+  TrackConfig,
+  TRACK_LENGTH,
+  TrackRange,
+  ActiveStep,
+} from "party/sequencer-shared";
 
 const PARTY = "sequencer";
 
@@ -15,6 +19,12 @@ export default function useSequencer(props: {
   const { partykitHost, room } = props;
   const store = syncedStore(docShape);
   const state = useSyncedStore(store);
+  const [activeStep, setActiveStep] = useState<ActiveStep>(
+    Object.entries(TrackConfig).reduce((acc, [trackId, _]) => {
+      acc[trackId] = null;
+      return acc;
+    }, {} as ActiveStep)
+  );
 
   const { provider } = useMemo(() => {
     const ydoc = getYjsDoc(store);
@@ -76,5 +86,29 @@ export default function useSequencer(props: {
     state[`${trackId}Range`].upper = range.upper;
   };
 
-  return { state, getSteps, setStep, getRange, setRange };
+  const markActive = (trackId: string, step: number | null) => {
+    setActiveStep((prev) => {
+      return { ...prev, [trackId]: step };
+    });
+  };
+
+  const markAllInactive = () => {
+    setActiveStep((prev) => {
+      return Object.entries(prev).reduce((acc, [trackId, _]) => {
+        acc[trackId] = null;
+        return acc;
+      }, {} as ActiveStep);
+    });
+  };
+
+  return {
+    state,
+    getSteps,
+    setStep,
+    getRange,
+    setRange,
+    activeStep,
+    markActive,
+    markAllInactive,
+  };
 }

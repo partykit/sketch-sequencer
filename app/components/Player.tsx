@@ -13,8 +13,12 @@ type Track = {
 
 const BPM = 120;
 
-export default function Player(props: { tracks: Record<string, Track> }) {
-  const { tracks } = props;
+export default function Player(props: {
+  tracks: Record<string, Track>;
+  markActive: (trackId: string, step: number) => void;
+  markAllInactive: () => void;
+}) {
+  const { tracks, markActive, markAllInactive } = props;
   const [prepared, setPrepared] = useState(false);
   const [playing, setPlaying] = useState(false);
 
@@ -73,6 +77,9 @@ export default function Player(props: { tracks: Record<string, Track> }) {
           if (track.steps[step]) {
             //console.log("Playing", trackID, step, time);
             players[trackID].start(time);
+            markActive(trackID, step);
+          } else {
+            markActive(trackID, null);
           }
         },
         sequenceSteps,
@@ -97,6 +104,7 @@ export default function Player(props: { tracks: Record<string, Track> }) {
         console.log("Started transport", Tone.Transport.state);
       } else {
         Tone.Transport.stop();
+        markAllInactive();
       }
       return newPlaying;
     });

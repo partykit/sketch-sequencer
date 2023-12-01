@@ -8,6 +8,7 @@ export default function Track(props: {
   setStep: (step: number, value: boolean) => void;
   range: TrackRange;
   setRange: (range: TrackRange) => void;
+  activeStep: number | null;
 }) {
   const { trackId, steps, setStep, range, setRange } = props;
   const track = TrackConfig[trackId];
@@ -26,6 +27,7 @@ export default function Track(props: {
             stepId={index}
             checked={step}
             handleToggle={() => setStep(index, !step)}
+            active={index === props.activeStep}
           />
         ))}
       </div>
