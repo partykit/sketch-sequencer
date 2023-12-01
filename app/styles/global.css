@@ -9,6 +9,7 @@
   --ui-color: #fff;
   --background-color: #222;
   --deactivated: rgba(127.5,127.5,127.5,0.3);
+  --slider-track: rgba(127.5,127.5,127.5,0.15);
 }
 
 html {
@@ -192,6 +193,7 @@ main {
 /* See: https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
 
 .slider {
+  margin-top: 10px;
   background-color: transparent!important;
 }
 
@@ -206,14 +208,14 @@ main {
 /* Targeting the track */
 .slider input[type="range"]::-webkit-slider-runnable-track {
   pointer-events: none;
-  background: var(--deactivated);
+  background: var(--slider-track);
   height: 5px;
   border-radius: 5px;
 }
 
 .slider input[type="range"]::-moz-range-track {
   pointer-events: none;
-  background: var(--deactivated);
+  background: var(--slider-track);
   height: 5px;
   border-radius: 5px;
 }
@@ -222,8 +224,8 @@ main {
 .slider input[type="range"]::-webkit-slider-thumb {
   pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
   -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
-  margin-top: -7.5px; /* Centers thumb on the track */
-  height: 20px;
+  margin-top: -5px; /* Centers thumb on the track */
+  height: 15px;
   width: 20px;
   border-left: 2px solid var(--ui-color);
   border-radius: 1px;
@@ -234,13 +236,20 @@ main {
   border-right: 2px solid var(--ui-color);
 }
 
-
+/* Targeting the thumb */
 .slider input[type="range"]::-moz-range-thumb {
   pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
-  margin-top: -12px; /* Centers thumb on the track */
-  background-color: #5cd5eb;
-  height: 20px;
-  width: 3px;    
+  -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
+  margin-top: -5px; /* Centers thumb on the track */
+  height: 15px;
+  width: 20px;
+  border-left: 2px solid var(--ui-color);
+  border-radius: 1px;
+}
+
+.slider input + input[type="range"]::-moz-range-thumb {
+  border-left: none;
+  border-right: 2px solid var(--ui-color);
 }
 
 /* [OLD] slider styles */
