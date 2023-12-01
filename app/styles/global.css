@@ -52,6 +52,7 @@ html * {
   letter-spacing: inherit;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 body {
@@ -60,7 +61,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  min-height: 100%;
+  min-height: 100dvh;
   margin: 0;
   padding: 20px 20px 25px;
   box-sizing: border-box;

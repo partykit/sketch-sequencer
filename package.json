@@ -12,6 +12,7 @@
     "start": "partykit dev"
   },
   "dependencies": {
+    "@msgpack/msgpack": "^3.0.0-beta2",
     "@remix-run/css-bundle": "^2.3.0",
     "@remix-run/react": "^2.3.0",
     "@syncedstore/core": "^0.6.0",
@@ -21,7 +22,9 @@
     "partysocket": "0.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "y-partykit": "^0.0.0-d53203d"
+    "y-partykit": "^0.0.0-d53203d",
+    "zod": "^3.22.4",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.3.0",

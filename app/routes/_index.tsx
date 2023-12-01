@@ -1,6 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
 import type { MetaFunction } from "partymix";
-import WhosHere from "../components/whos-here";
 
 // PartyKit will inject the host into the server bundle
 // so let's read it here and expose it to the client

@@ -4,7 +4,8 @@
   "main": "build/index.js",
   "compatibilityDate": "2023-10-14",
   "parties": {
-    "sequencer": "party/sequencer.ts"
+    "sequencer": "party/sequencer.ts",
+    "presence": "party/presence.ts"
   },
   "serve": "public",
   "define": {
