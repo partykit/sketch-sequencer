@@ -29,6 +29,12 @@ export const TrackConfig: Record<string, Track> = {
   },
 };
 
+export const ClickTrackConfig: Track = {
+  name: "Click",
+  color: "#ffffff",
+  sample: "/assets/click.wav",
+};
+
 // docShape is the empty object for the yjs doc
 // it has keys for each track:
 // trackSteps: {}

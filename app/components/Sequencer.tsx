@@ -16,7 +16,6 @@ export default function Sequencer(props: {
     acc[trackId] = {
       steps: getSteps(trackId),
       range: getRange(trackId),
-      sample: track.sample,
     };
     return acc;
   }, {} as any);
