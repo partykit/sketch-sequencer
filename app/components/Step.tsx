@@ -4,9 +4,14 @@ export default function Step(props: {
   handleToggle: () => void;
 }) {
   const { stepId, checked, handleToggle } = props;
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleToggle();
+  };
+
   return (
     <label>
-      <input type="checkbox" checked={checked} onChange={handleToggle} />
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e)} />
       <span>{stepId + 1}</span>
       <div></div>
     </label>

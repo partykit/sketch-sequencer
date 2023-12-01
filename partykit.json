@@ -1,5 +1,5 @@
 {
-  "name": "partymix-example",
+  "name": "partycore",
   // remix compiles our actual entry point (party/main.ts) to build/index.js
   "main": "build/index.js",
   "compatibilityDate": "2023-10-14",
