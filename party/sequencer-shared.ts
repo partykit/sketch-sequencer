@@ -28,7 +28,7 @@ export const TrackConfig: Record<string, Track> = {
 // Behaviour:
 // trackSteps is a map of number 0...TRACK_LENGTH-1 to a boolean, where
 // not being present is the same as false.
-// trackRange has either 0 or 2 elements, denoting the beginning and end,
+// trackRange is empty or has lower and upper properties,
 // where each is a number 0...TRACK_LENGTH-1, defaulting to 0 for the first
 // item and TRACK_LENGTH for the second.
 // This is so that the empty yjs doc is still valid.
@@ -36,5 +36,5 @@ export const docShape = {} as any;
 
 for (const track in TrackConfig) {
   docShape[`${track}Steps`] = {};
-  docShape[`${track}Range`] = [];
+  docShape[`${track}Range`] = {};
 }
