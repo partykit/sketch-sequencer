@@ -180,9 +180,49 @@ main {
   background: var(--deactivated);
 }
 
-
-
 /* slider styles */
+/* See: https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
+
+.slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+}
+
+/* Targeting the track */
+.slider input[type="range"]::-webkit-slider-runnable-track {
+  pointer-events: none;
+  background: blue;
+  height: 5px;
+}
+
+.slider input[type="range"]::-moz-range-track {
+  pointer-events: none;
+  background: blue;
+  height: 5px;
+}
+
+/* Targeting the thumb */
+.slider input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
+  -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
+  margin-top: -12px; /* Centers thumb on the track */
+  background-color: #5cd5eb;
+  height: 2rem;
+  width: 1rem;    
+}
+
+.slider input[type="range"]::-moz-range-thumb {
+  pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
+  margin-top: -12px; /* Centers thumb on the track */
+  background-color: #5cd5eb;
+  height: 2rem;
+  width: 1rem;    
+}
+
+/* [OLD] slider styles */
 
 .rs-container * {
 box-sizing: border-box;
