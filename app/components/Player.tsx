@@ -11,7 +11,9 @@ type Track = {
   range: TrackRange;
 };
 
-const BPM = 160;
+// Config
+const BPM = 150;
+const ENABLE_CLICK_TRACK = false;
 
 export default function Player(props: {
   tracks: Record<string, Track>;
@@ -46,7 +48,7 @@ export default function Player(props: {
     const sequences = {} as Record<string, Tone.Sequence>;
 
     // Click track
-    if (players._click) {
+    if (ENABLE_CLICK_TRACK && players._click) {
       sequences._click = new Tone.Sequence(
         (time, step) => {
           if (step % 4 === 0) {
