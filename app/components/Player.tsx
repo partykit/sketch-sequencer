@@ -14,7 +14,7 @@ type Track = {
 
 // Config
 const BPM = 140;
-const ENABLE_CLICK_TRACK = true;
+const ENABLE_CLICK_TRACK = false;
 
 function equalSteps(a: boolean[], b: boolean[]) {
   return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -139,7 +139,7 @@ export default function Player(props: {
         },
         sequenceSteps,
         "16n"
-      ).start(track.range.lower * Tone.Time("4n").toSeconds());
+      ).start(0); //start(track.range.lower * Tone.Time("4n").toSeconds());
     });
 
     tracksRef.current = tracks;
