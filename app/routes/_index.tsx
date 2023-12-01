@@ -19,11 +19,15 @@ export default function Index() {
   const { partykitHost } = useLoaderData<typeof loader>();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Hello, World</h1>
-      <p>
-        <a href="/rooms/example-room">Example Room &rarr;</a>
-      </p>
+    <div className="partymix_index">
+      <h1>PartyMix.</h1>
+      <ul>
+        <li><a href="/rooms/example-room">PartyCore.</a></li>
+      </ul>
+      <footer>
+        <p>Made with <a href="htts://partykit.io">PartyKit</a>, 2023.</p>  
+      </footer>
     </div>
   );
 }
+
