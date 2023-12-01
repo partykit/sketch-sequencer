@@ -58,9 +58,13 @@ export default function Player(props: {
   useEffect(() => {
     // Set BPM
     Tone.Transport.bpm.value = BPM;
-    //Tone.Transport.loop = true;
-    //Tone.Transport.loopStart = "0:0:0";
-    //Tone.Transport.loopEnd = `${(TRACK_LENGTH / 16).toString()}:0:0`;
+
+    // Clean up sequences here too
+    return () => {
+      for (const seq of Object.values(sequences)) {
+        seq.dispose();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -106,7 +110,6 @@ export default function Player(props: {
       // and that coincides with transport's loop
       // HOWEVER! the click track works happily, without needing a re-render
       // to schedule it
-      /*
       if (
         tracksRef.current[trackID] &&
         equalSteps(tracksRef.current[trackID].steps, track.steps) &&
@@ -115,7 +118,6 @@ export default function Player(props: {
         console.log("No change", trackID);
         return;
       }
-      */
 
       if (sequences[trackID]) {
         console.log("disposing", trackID);
@@ -139,14 +141,15 @@ export default function Player(props: {
         },
         sequenceSteps,
         "16n"
-      ).start(0); //start(track.range.lower * Tone.Time("4n").toSeconds());
+      ).start(track.range.lower * Tone.Time("4n").toSeconds());
     });
 
     tracksRef.current = tracks;
 
     return () => {
       for (const seq of Object.values(sequences)) {
-        seq.dispose();
+        // Sequences are disposed of at the top level of the component
+        //seq.dispose();
       }
     };
   }, [players, tracks]);
