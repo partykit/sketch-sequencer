@@ -11,7 +11,7 @@ type Track = {
   range: TrackRange;
 };
 
-const BPM = 120;
+const BPM = 160;
 
 export default function Player(props: {
   tracks: Record<string, Track>;
@@ -77,10 +77,8 @@ export default function Player(props: {
           if (track.steps[step]) {
             //console.log("Playing", trackID, step, time);
             players[trackID].start(time);
-            markActive(trackID, step);
-          } else {
-            markActive(trackID, null);
           }
+          markActive(trackID, step);
         },
         sequenceSteps,
         "16n"
