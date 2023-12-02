@@ -244,7 +244,10 @@ main {
 
 .steps label input {
   position: absolute;
-  left: 5000%;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .steps label span {
