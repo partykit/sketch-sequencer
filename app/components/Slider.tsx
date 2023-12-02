@@ -39,6 +39,7 @@ export default function Slider(props: {
         backgroundColor: "red",
       }}
     >
+      <div></div>
       <input
         type="range"
         min={MIN}

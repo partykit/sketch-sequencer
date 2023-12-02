@@ -429,7 +429,15 @@ main {
   right: calc(var(--step-width) * 0);
 }
 
-
+.slider > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--deactivated);
+  border-radius: 5px;
+}
 
 .slider input[type="range"] {
   -webkit-appearance: none;
@@ -443,15 +451,13 @@ main {
 .slider input[type="range"]::-webkit-slider-runnable-track {
   pointer-events: none;
   background: var(--slider-track);
-  height: 5px;
-  border-radius: 5px;
+  height: 0px;
 }
 
 .slider input[type="range"]::-moz-range-track {
   pointer-events: none;
   background: var(--slider-track);
-  height: 5px;
-  border-radius: 5px;
+  height: 0px;
 }
 
 /* Targeting the thumb */
@@ -473,7 +479,8 @@ main {
   margin-top: -5px; /* Centers thumb on the track */
   height: 15px;
   width: 0px;
-  border-left: 2px solid var(--ui-color);
+  border-left: 1px solid var(--ui-color);
+  border-right: 1px solid var(--ui-color);
 /*   z-index: 20; */
 }
 
