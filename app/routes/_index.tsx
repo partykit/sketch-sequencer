@@ -22,12 +22,15 @@ export default function Index() {
     <div className="partymix_index">
       <h1>PartyMix.</h1>
       <ul>
-        <li><a href="/rooms/example-room">PartyCore.</a></li>
+        <li>
+          <a href="/rooms/1999">PartyCore.</a>
+        </li>
       </ul>
       <footer>
-        <p>Made with <a href="htts://partykit.io">PartyKit</a>, 2023.</p>  
+        <p>
+          Made with <a href="htts://partykit.io">PartyKit</a>, 2023.
+        </p>
       </footer>
     </div>
   );
 }
-
