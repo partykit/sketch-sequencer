@@ -179,7 +179,7 @@ export default function Player(props: {
   }, [prepared, playing]);
 
   return (
-    <div>
+    <div id="player">
       {prepared === false && (
         <button onClick={() => setPrepared(true)}>Allow Audio</button>
       )}
