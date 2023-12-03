@@ -464,11 +464,13 @@ main {
 .slider input[type="range"]::-webkit-slider-thumb {
   pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
   -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
-  margin-top: -5px; /* Centers thumb on the track */
-  height: 15px;
-  width: 0px;
-  border-left: 1px solid var(--ui-color);
-  border-right: 1px solid var(--ui-color);
+  margin-top: -7px; /* Centers thumb on the track */
+  height: 18px;
+  width: 18px;
+  background-color : var(--ui-color);
+  border-radius: 9999px;
+  /*border-left: 1px solid var(--ui-color);
+  border-right: 1px solid var(--ui-color);*/
 /*   z-index: 20; */
 }
 
@@ -476,11 +478,13 @@ main {
 .slider input[type="range"]::-moz-range-thumb {
   pointer-events: auto; /* Enable pointer events on thumb for WebKit/Blink */
   -webkit-appearance: none; /* Necessary to apply custom styles on WebKit/Blink */
-  margin-top: -5px; /* Centers thumb on the track */
-  height: 15px;
-  width: 0px;
-  border-left: 1px solid var(--ui-color);
-  border-right: 1px solid var(--ui-color);
+  margin-top: -7px; /* Centers thumb on the track */
+  height: 18px;
+  width: 18px;
+  background-color : var(--ui-color);
+  border-radius: 9999px;
+  /*border-left: 1px solid var(--ui-color);
+  border-right: 1px solid var(--ui-color);*/
 /*   z-index: 20; */
 }
 
