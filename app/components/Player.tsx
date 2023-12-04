@@ -179,14 +179,11 @@ export default function Player(props: {
     }
   }, [prepared, playing]);
 
-  const handleAllow = () => {
-    setPrepared(true);
-    setPlaying(true);
-  };
-
   return (
     <div id="player">
-      {prepared === false && <button onClick={handleAllow}>Allow Audio</button>}
+      {prepared === false && (
+        <button onClick={() => setPrepared(true)}>Allow Audio</button>
+      )}
       {prepared === true && (
         <button onClick={() => setPlaying((prev) => !prev)}>
           {playing ? "Pause" : "Play"}
