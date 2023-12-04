@@ -6,6 +6,7 @@ import {
   ClickTrackConfig,
   TRACK_LENGTH,
 } from "party/sequencer-shared";
+import { set } from "zod";
 
 type Track = {
   steps: boolean[];
@@ -161,7 +162,7 @@ export default function Player(props: {
 
     if (playing) {
       Tone.Transport.start();
-      console.log("Started transport", Tone.Transport.state);
+      /*console.log("Started transport", Tone.Transport.state);
       console.log(
         "seconds",
         Tone.Transport.seconds,
@@ -171,18 +172,21 @@ export default function Player(props: {
         Tone.Transport.loopStart,
         "loopEnd",
         Tone.Transport.loopEnd
-      );
+      );*/
     } else {
       Tone.Transport.stop();
       markAllInactive();
     }
   }, [prepared, playing]);
 
+  const handleAllow = () => {
+    setPrepared(true);
+    setPlaying(true);
+  };
+
   return (
     <div id="player">
-      {prepared === false && (
-        <button onClick={() => setPrepared(true)}>Allow Audio</button>
-      )}
+      {prepared === false && <button onClick={handleAllow}>Allow Audio</button>}
       {prepared === true && (
         <button onClick={() => setPlaying((prev) => !prev)}>
           {playing ? "Pause" : "Play"}
