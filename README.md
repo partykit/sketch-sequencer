@@ -1,48 +1,25 @@
-# Welcome to 🎈 PartyKit ⤫ Remix 💿!
+# partycore
 
-This is a starter template for [Remix](https://remix.run) and [PartyKit](https://partykit.io). You can create a new project based on this template with the Remix CLI:
+Multiplayer polyrhythmic drum sequencer demo using PartyKit, Yjs and Tone.js. Designed by [Mark Hurrell](https://mhurrell.co.uk).
 
-```sh
-npx create-remix@latest ./my-partymix-app --template partykit/remix-starter
-```
+![video](/docs/assets/demo.mp4)
 
-- [Remix Docs](https://remix.run/docs)
-- [PartyKit Docs](https://docs.partykit.io/)
+## What it is
 
-_NB: This is a **beta** release, so expect some rough edges. Please file issues or feedback at https://github.com/partykit/remix-starter!_
+There are three fixed tracks. You can turn the steps on and off. You can change the length of the loop separately for each track.
 
-## Development
+It gets noise. People dance with their cursors.
 
-You will be running two processes during development:
+![cursor](/docs/assets/cursors.gif)
 
-- The Remix development server
-- The PartyKit server
+## How it works
 
-Both are started with one command:
+The app is built and served with PartyKit using the [Remix template](https://github.com/partykit/remix-starter).
 
-```sh
-npm run dev
-```
+Data sync uses Yjs. So the [backend party](https://github.com/partykit/sketch-sequencer/blob/main/party/sequencer.ts) doesn't do much at all. But the Yjs doc is wrapped inside a hook that provides functionality: look at [useSequencer](https://github.com/partykit/sketch-sequencer/blob/main/app/hooks/use-sequencer.tsx) for the high-level functions to edit the steps and the ranges.
 
-Open up [http://127.0.0.1:1999](http://127.0.0.1:1999) and you should be ready to go!
+The sound itself plays using the [Tone.js](https://tonejs.github.io) Web Audio framework. Have a look at the [Player component](https://github.com/partykit/sketch-sequencer/blob/main/app/components/Player.tsx) to see how the sequencer data is used to schedule the sounds.
 
-If you want to check the production build, you can stop the dev server and run following commands:
+## What next
 
-```sh
-npm run build
-npm start
-```
-
-Then refresh the same URL in your browser (no live reload for production builds).
-
-## Deployment
-
-```sh
-npm run deploy
-```
-
-If you don't already have a PartyKit account, you'll be prompted to create one during the deploy process.
-
-## Thanks
-
-_(This starter based on the original template for [Cloudflare Workers](https://github.com/remix-run/remix/tree/main/templates/cloudflare-workers))_
+It's hidden but this is already a multi room app. (Change the `/rooms/1999` in the URL and pick a different room ID.) So it would be fun to allow for users to pick a room, and create and share their own set of tracks from a bank of samples.
