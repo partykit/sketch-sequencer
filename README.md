@@ -2,7 +2,7 @@
 
 Multiplayer polyrhythmic drum sequencer demo using PartyKit, Yjs and Tone.js. Designed by [Mark Hurrell](https://mhurrell.co.uk).
 
-![video](/docs/assets/demo.mp4)
+https://github.com/partykit/sketch-sequencer/assets/265390/ebd9701a-6a78-4509-b2bb-e5198eb065a6
 
 ## What it is
 
