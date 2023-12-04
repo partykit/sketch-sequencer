@@ -432,8 +432,8 @@ main {
 .slider > div {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 5px;
+  right: 5px;
   height: 5px;
   background: var(--deactivated);
   border-radius: 5px;
