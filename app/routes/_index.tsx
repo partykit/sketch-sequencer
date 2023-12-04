@@ -28,7 +28,8 @@ export default function Index() {
       </ul>
       <footer>
         <p>
-          Made with <a href="htts://partykit.io">PartyKit</a>, 2023.
+          Made with <a href="https://www.partykit.io">PartyKit</a>, 2023. Code
+          on <a href="https://github.com/partykit/sketch-sequencer">github</a>.
         </p>
       </footer>
     </div>
