@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf build && rimraf public/build && remix build",
     "check": "tsc --noEmit",
-    "deploy": "npm run build && partykit deploy",
+    "deploy": "npm run build && partykit deploy --with-vars",
     "dev": "remix dev --manual -c \"npm start\" --port 8002",
     "start": "partykit dev"
   },
@@ -17,6 +17,7 @@
     "@remix-run/react": "^2.3.0",
     "@syncedstore/core": "^0.6.0",
     "@syncedstore/react": "^0.6.0",
+    "fathom-client": "^3.6.0",
     "isbot": "^3.7.1",
     "partymix": "^0.0.7",
     "partysocket": "0.0.16",

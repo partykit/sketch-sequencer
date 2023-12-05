@@ -94,13 +94,13 @@ export default function Player(props: {
 
   useEffect(() => {
     // Set up all other tracks
-    console.log("Set up tracks");
+    //console.log("Set up tracks");
 
     Object.entries(tracks).forEach(([trackID, track]) => {
       // We can't do anything if there's no sample
       if (!players[trackID]) return;
 
-      console.log("Evaluating track", trackID, track.steps, track.range);
+      //console.log("Evaluating track", trackID, track.steps, track.range);
 
       // Decide whether the data has changed. If there's no change
       // then don't change the sequence
@@ -116,12 +116,12 @@ export default function Player(props: {
         equalSteps(tracksRef.current[trackID].steps, track.steps) &&
         equalRange(tracksRef.current[trackID].range, track.range)
       ) {
-        console.log("No change", trackID);
+        //console.log("No change", trackID);
         return;
       }
 
       if (sequences[trackID]) {
-        console.log("disposing", trackID);
+        //console.log("disposing", trackID);
         sequences[trackID].dispose(); // dispose of the old sequence
       }
 
@@ -131,11 +131,11 @@ export default function Player(props: {
         (_, i) => i + track.range.lower
       );
 
-      console.log("Setting up sequence", trackID, sequenceSteps);
+      //console.log("Setting up sequence", trackID, sequenceSteps);
       sequences[trackID] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
-            console.log("Playing", trackID, step, time);
+            //console.log("Playing", trackID, step, time);
             players[trackID].start(time);
           }
           markActive(trackID, step);
