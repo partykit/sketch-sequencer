@@ -1,17 +1,18 @@
-import { TrackConfig, TrackRange } from "party/sequencer-shared";
+import { AVAILABLE_TRACKS, TrackRange } from "party/sequencer-shared";
 import Step from "./Step";
 import Slider from "./Slider";
 
 export default function Track(props: {
   trackId: string;
+  type: keyof typeof AVAILABLE_TRACKS;
   steps: boolean[];
   setStep: (step: number, value: boolean) => void;
   range: TrackRange;
   setRange: (range: TrackRange) => void;
   activeStep: number | null;
 }) {
-  const { trackId, steps, setStep, range, setRange } = props;
-  const track = TrackConfig[trackId];
+  const { trackId, type, steps, setStep, range, setRange } = props;
+  const track = AVAILABLE_TRACKS[type];
 
   if (!track) return null;
 
