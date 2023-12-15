@@ -15,6 +15,8 @@ export default function Sequencer(props: {
     activeStep,
     markActive,
     markAllInactive,
+    save,
+    load,
   } = useSequencer(props);
 
   const trackIds = Object.keys(TrackConfig);
@@ -48,6 +50,8 @@ export default function Sequencer(props: {
         markActive={markActive}
         markAllInactive={markAllInactive}
       />
+      {/*<button onClick={save}>Save</button>
+      <button onClick={load}>Load</button>*/}
     </>
   );
 }

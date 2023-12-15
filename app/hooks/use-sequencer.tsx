@@ -49,6 +49,13 @@ export default function useSequencer(props: {
     return serialized;
   };
 
+  const protocol = ["localhost", "127.0.0.1:1999", "0.0.0.0:1999"].includes(
+    partykitHost
+  )
+    ? "http"
+    : "https";
+  const checkpointUrl = `${protocol}://${partykitHost}/parties/${PARTY}/${room}/checkpoint`;
+
   const deserialize = (serialized: SerializedRoom) => {
     serialized.tracks.forEach((track) => {
       const { trackId, steps, range } = track;
@@ -59,6 +66,33 @@ export default function useSequencer(props: {
         setRange(trackId, range);
       }
     });
+  };
+
+  const save = async () => {
+    // POST the serialized room to the partykit server
+    const serialized = serialize();
+    const response = await fetch(checkpointUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(serialized),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to save room");
+    }
+  };
+
+  const load = async () => {
+    // GET the serialized room from the partykit server
+    const response = await fetch(checkpointUrl);
+    if (!response.ok) {
+      throw new Error("Failed to load room");
+    }
+    const { success, serialized } = await response.json();
+    if (success) {
+      deserialize(serialized);
+    }
   };
 
   const getSteps = (trackId: string) => {
@@ -80,7 +114,7 @@ export default function useSequencer(props: {
     if (trackId in TrackConfig) {
       if (value) {
         state[`${trackId}Steps`][step] = true;
-      } else {
+      } else if (step in state[`${trackId}Steps`]) {
         delete state[`${trackId}Steps`][step];
       }
     }
@@ -137,5 +171,7 @@ export default function useSequencer(props: {
     activeStep,
     markActive,
     markAllInactive,
+    save,
+    load,
   };
 }
