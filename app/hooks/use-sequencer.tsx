@@ -8,6 +8,7 @@ import {
   TRACK_LENGTH,
   TrackRange,
   ActiveStep,
+  SerializedRoom,
 } from "party/sequencer-shared";
 
 const PARTY = "sequencer";
@@ -34,8 +35,34 @@ export default function useSequencer(props: {
     return { provider };
   }, []);
 
+  const serialize = () => {
+    const trackIds = Object.keys(TrackConfig);
+    const serialized: SerializedRoom = {
+      tracks: trackIds.map((trackId) => {
+        return {
+          trackId,
+          steps: getSteps(trackId),
+          range: getRange(trackId),
+        };
+      }),
+    };
+    return serialized;
+  };
+
+  const deserialize = (serialized: SerializedRoom) => {
+    serialized.tracks.forEach((track) => {
+      const { trackId, steps, range } = track;
+      if (trackId in TrackConfig) {
+        steps.map((step, index) => {
+          setStep(trackId, index, step);
+        });
+        setRange(trackId, range);
+      }
+    });
+  };
+
   const getSteps = (trackId: string) => {
-    // steps is an object with keys 1..TRACK_LENGTH
+    // steps is an array of booleans of length TRACK_LENGTH
     const steps = Array(TRACK_LENGTH).fill(false);
     if (trackId in TrackConfig) {
       const syncedSteps = getYjsValue(state[`${trackId}Steps`]) as

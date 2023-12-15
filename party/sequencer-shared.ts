@@ -55,3 +55,13 @@ for (const track in TrackConfig) {
   docShape[`${track}Steps`] = {};
   docShape[`${track}Range`] = {};
 }
+
+// serializedRoom is an object that represents a room state so it can
+// be saved and loaded
+export type SerializedRoom = {
+  tracks: {
+    trackId: string;
+    steps: boolean[]; // must be TRACK_LENGTH long
+    range: TrackRange; // i.e. object with lower and upper properties
+  }[];
+};
