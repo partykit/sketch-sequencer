@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import * as Tone from "tone";
 import {
-  TrackConfig,
+  AVAILABLE_TRACKS,
   TrackRange,
-  ClickTrackConfig,
   TRACK_LENGTH,
 } from "party/sequencer-shared";
 import { set } from "zod";
 
 type Track = {
+  type: keyof typeof AVAILABLE_TRACKS;
   steps: boolean[];
   range: TrackRange;
 };
@@ -41,10 +41,14 @@ export default function Player(props: {
 
   // Create players
   useEffect(() => {
-    Object.entries(TrackConfig).forEach(([trackID, track]) => {
-      players[trackID] = new Tone.Player(track.sample).toDestination();
+    Object.entries(tracks).forEach(([trackId, track]) => {
+      const trackConfig = AVAILABLE_TRACKS[track.type];
+      if (!trackConfig) return;
+      players[trackId] = new Tone.Player(trackConfig.sample).toDestination();
     });
-    players._click = new Tone.Player(ClickTrackConfig.sample).toDestination();
+    players._click = new Tone.Player(
+      AVAILABLE_TRACKS["click"].sample
+    ).toDestination();
 
     // Cleanup function
     return () => {
@@ -80,7 +84,7 @@ export default function Player(props: {
             players._click.start(time);
           }
         },
-        Array.from(Array(16).keys()),
+        Array.from(Array(TRACK_LENGTH).keys()),
         "16n"
       ).start(0);
     }
@@ -96,9 +100,9 @@ export default function Player(props: {
     // Set up all other tracks
     //console.log("Set up tracks");
 
-    Object.entries(tracks).forEach(([trackID, track]) => {
+    Object.entries(tracks).forEach(([trackId, track]) => {
       // We can't do anything if there's no sample
-      if (!players[trackID]) return;
+      if (!players[trackId]) return;
 
       //console.log("Evaluating track", trackID, track.steps, track.range);
 
@@ -112,17 +116,17 @@ export default function Player(props: {
       // HOWEVER! the click track works happily, without needing a re-render
       // to schedule it
       if (
-        tracksRef.current[trackID] &&
-        equalSteps(tracksRef.current[trackID].steps, track.steps) &&
-        equalRange(tracksRef.current[trackID].range, track.range)
+        tracksRef.current[trackId] &&
+        equalSteps(tracksRef.current[trackId].steps, track.steps) &&
+        equalRange(tracksRef.current[trackId].range, track.range)
       ) {
         //console.log("No change", trackID);
         return;
       }
 
-      if (sequences[trackID]) {
+      if (sequences[trackId]) {
         //console.log("disposing", trackID);
-        sequences[trackID].dispose(); // dispose of the old sequence
+        sequences[trackId].dispose(); // dispose of the old sequence
       }
 
       const sequenceLength = track.range.upper - track.range.lower + 1;
@@ -132,13 +136,13 @@ export default function Player(props: {
       );
 
       //console.log("Setting up sequence", trackID, sequenceSteps);
-      sequences[trackID] = new Tone.Sequence(
+      sequences[trackId] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
             //console.log("Playing", trackID, step, time);
-            players[trackID].start(time);
+            players[trackId].start(time);
           }
-          markActive(trackID, step);
+          markActive(trackId, step);
         },
         sequenceSteps,
         "16n"

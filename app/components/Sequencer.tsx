@@ -1,5 +1,5 @@
 import useSequencer from "~/hooks/use-sequencer";
-import { TrackConfig, TrackRange } from "party/sequencer-shared";
+import { TrackRange } from "party/sequencer-shared";
 import Track from "~/components/Track";
 import Player from "~/components/Player";
 
@@ -8,6 +8,7 @@ export default function Sequencer(props: {
   room: string;
 }) {
   const {
+    sequencerTracks,
     getSteps,
     setStep,
     getRange,
@@ -15,32 +16,34 @@ export default function Sequencer(props: {
     activeStep,
     markActive,
     markAllInactive,
+    save,
+    load,
   } = useSequencer(props);
 
-  const trackIds = Object.keys(TrackConfig);
-
   // We need to construct an entire tracks object here to hand to the Player
-  const tracks = Object.entries(TrackConfig).reduce((acc, [trackId, track]) => {
-    acc[trackId] = {
-      steps: getSteps(trackId),
-      range: getRange(trackId),
+  const tracks = sequencerTracks.reduce((acc, track) => {
+    acc[track.trackId] = {
+      type: track.type,
+      steps: getSteps(track.trackId),
+      range: getRange(track.trackId),
     };
     return acc;
   }, {} as any);
 
   return (
     <>
-      {trackIds.map((trackId, index) => (
+      {sequencerTracks.map((track, index) => (
         <Track
           key={index}
-          trackId={trackId}
-          steps={getSteps(trackId)}
+          trackId={track.trackId}
+          type={track.type}
+          steps={getSteps(track.trackId)}
           setStep={(step: number, value: boolean) =>
-            setStep(trackId, step, value)
+            setStep(track.trackId, step, value)
           }
-          range={getRange(trackId)}
-          setRange={(range: TrackRange) => setRange(trackId, range)}
-          activeStep={activeStep[trackId]}
+          range={getRange(track.trackId)}
+          setRange={(range: TrackRange) => setRange(track.trackId, range)}
+          activeStep={activeStep[track.trackId]}
         />
       ))}
       <Player
@@ -48,6 +51,10 @@ export default function Sequencer(props: {
         markActive={markActive}
         markAllInactive={markAllInactive}
       />
+      <div id="checkpoint" style={{ display: "none" }}>
+        <button onClick={save}>Save</button>
+        <button onClick={load}>Load</button>
+      </div>
     </>
   );
 }

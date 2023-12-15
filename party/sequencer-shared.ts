@@ -13,7 +13,7 @@ export type ActiveStep = Record<string, number | null>;
 
 export const TRACK_LENGTH = 16;
 
-export const TrackConfig: Record<string, Track> = {
+export const AVAILABLE_TRACKS: Record<string, Track> = {
   kick: {
     name: "Kick",
     color: "#ec5c3d",
@@ -29,29 +29,44 @@ export const TrackConfig: Record<string, Track> = {
     color: "#6faed7",
     sample: "/assets/hat.wav",
   },
+  click: {
+    name: "Click",
+    color: "#999999",
+    sample: "/assets/click.wav",
+  },
 };
 
-export const ClickTrackConfig: Track = {
-  name: "Click",
-  color: "#ffffff",
-  sample: "/assets/click.wav",
+// config is an object with properties: tracks
+// { sequencerId: string, trackId: string }[]
+// If metadata is empty then it defaults to using TrackConfig
+// sequencer is an object with key of trackId and value of:
+// { range: {}, steps: {} }
+export const docShape = { config: {}, sequencer: {} } as any;
+
+export type SequencerTrack = {
+  trackId: string;
+  type: keyof typeof AVAILABLE_TRACKS;
 };
 
-// docShape is the empty object for the yjs doc
-// it has keys for each track:
-// trackSteps: {}
-// trackRange: []
-// where 'track' is replaced by the key for each track
-// Behaviour:
-// trackSteps is a map of number 0...TRACK_LENGTH-1 to a boolean, where
-// not being present is the same as false.
-// trackRange is empty or has lower and upper properties,
-// where each is a number 0...TRACK_LENGTH-1, defaulting to 0 for the first
-// item and TRACK_LENGTH for the second.
-// This is so that the empty yjs doc is still valid.
-export const docShape = {} as any;
+export const defaultSequencerConfig = {
+  tracks: ["kick", "snare", "hat"].map(
+    (trackId) =>
+      ({
+        trackId,
+        type: trackId,
+      } as SequencerTrack)
+  ),
+};
 
-for (const track in TrackConfig) {
-  docShape[`${track}Steps`] = {};
-  docShape[`${track}Range`] = {};
-}
+// serializedRoom is an object that represents a room state so it can
+// be saved and loaded
+export type SerializedRoom = {
+  config: {
+    tracks: SequencerTrack[]; // { trackId, type }
+  };
+  sequencer: {
+    trackId: string;
+    steps: boolean[]; // must be TRACK_LENGTH long
+    range: TrackRange; // i.e. object with lower and upper properties
+  }[];
+};
