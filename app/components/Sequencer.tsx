@@ -51,8 +51,10 @@ export default function Sequencer(props: {
         markActive={markActive}
         markAllInactive={markAllInactive}
       />
-      <button onClick={save}>Save</button>
-      <button onClick={load}>Load</button>
+      <div id="checkpoint" style={{ display: "none" }}>
+        <button onClick={save}>Save</button>
+        <button onClick={load}>Load</button>
+      </div>
     </>
   );
 }
