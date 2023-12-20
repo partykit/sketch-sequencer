@@ -19,7 +19,6 @@ export default function Track(props: {
   return (
     <div
       className="track"
-      style={{ "--ui-color": track.color } as any}
       data-loop-start={range.lower}
       data-loop-end={range.upper}
     >
