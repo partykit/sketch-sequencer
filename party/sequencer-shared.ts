@@ -48,14 +48,19 @@ export type SequencerTrack = {
   type: keyof typeof AVAILABLE_TRACKS;
 };
 
-export const defaultSequencerConfig = {
-  tracks: ["kick", "snare", "hat"].map(
+export const presetSequencerTracks = {
+  partycore: ["kick", "snare", "hat"].map(
     (trackId) =>
       ({
         trackId,
         type: trackId,
       } as SequencerTrack)
   ),
+  click: [{ trackId: "click", type: "click" }],
+};
+
+export const defaultSequencerConfig = {
+  tracks: presetSequencerTracks["partycore"],
 };
 
 // serializedRoom is an object that represents a room state so it can
