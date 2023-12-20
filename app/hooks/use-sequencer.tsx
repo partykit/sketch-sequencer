@@ -23,6 +23,7 @@ export default function useSequencer(props: {
   const { partykitHost, room } = props;
   const store = syncedStore(docShape);
   const state = useSyncedStore(store);
+  const [synced, setSynced] = useState(false);
 
   /* Initialising!
      If initialTrackTypes is passed in, we use that to reset the room.
@@ -70,6 +71,9 @@ export default function useSequencer(props: {
     const ydoc = getYjsDoc(store);
     const provider = new YPartyKitProvider(partykitHost, room, ydoc, {
       party: PARTY,
+    });
+    provider.on("synced", () => {
+      setSynced(true);
     });
     return { provider };
   }, []);
@@ -219,6 +223,7 @@ export default function useSequencer(props: {
 
   return {
     state,
+    synced,
     getSequencerTracks,
     getSteps,
     setStep,

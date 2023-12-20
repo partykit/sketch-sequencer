@@ -9,6 +9,7 @@ export default function Sequencer(props: {
   initialTrackTypes: string[];
 }) {
   const {
+    synced,
     getSequencerTracks,
     getSteps,
     setStep,
@@ -32,6 +33,10 @@ export default function Sequencer(props: {
     };
     return acc;
   }, {} as any);
+
+  if (!synced) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
