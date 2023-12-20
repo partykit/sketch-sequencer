@@ -34,6 +34,26 @@ export const AVAILABLE_TRACKS: Record<string, Track> = {
     color: "#999999",
     sample: "/assets/click.wav",
   },
+  xmasMelody: {
+    name: "Xmas Melody",
+    color: "#660000",
+    sample: "/assets/xmas-melody.wav",
+  },
+  xmasKick: {
+    name: "Xmas Kick",
+    color: "#660000",
+    sample: "/assets/xmas-kick.wav",
+  },
+  xmasSnare: {
+    name: "Xmas Snare",
+    color: "#660000",
+    sample: "/assets/xmas-snare.wav",
+  },
+  xmasHat: {
+    name: "Xmas Hat",
+    color: "#660000",
+    sample: "/assets/xmas-hat.wav",
+  },
 };
 
 // config is an object with properties: tracks
@@ -50,6 +70,13 @@ export type SequencerTrack = {
 
 export const presetSequencerTracks = {
   partycore: ["kick", "snare", "hat"].map(
+    (trackId) =>
+      ({
+        trackId,
+        type: trackId,
+      } as SequencerTrack)
+  ),
+  festive: ["xmasMelody", "xmasKick", "xmasSnare", "xmasHat"].map(
     (trackId) =>
       ({
         trackId,

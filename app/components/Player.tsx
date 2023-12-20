@@ -14,7 +14,6 @@ type Track = {
 
 // Config
 const BPM = 140;
-const ENABLE_CLICK_TRACK = false;
 
 function equalSteps(a: boolean[], b: boolean[]) {
   return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -61,34 +60,10 @@ export default function Player(props: {
     // Clean up sequences here too
     return () => {
       for (const seq of Object.values(sequences)) {
-        seq.dispose();
+        //seq.dispose();
       }
     };
   }, []);
-
-  useEffect(() => {
-    // Set up the click track
-    let clickSequence: Tone.Sequence | null = null;
-    if (ENABLE_CLICK_TRACK && players.click) {
-      console.log("Setting up click track");
-      clickSequence = new Tone.Sequence(
-        (time, step) => {
-          if (step % 4 === 0) {
-            //console.log("Click should play now", step, time);
-            players._click.start(time);
-          }
-        },
-        Array.from(Array(TRACK_LENGTH).keys()),
-        "16n"
-      ).start(0);
-    }
-
-    return () => {
-      if (clickSequence) {
-        clickSequence.dispose();
-      }
-    };
-  }, [players]);
 
   useEffect(() => {
     // Set up all other tracks
@@ -107,14 +82,12 @@ export default function Player(props: {
       // But if the following block is uncommented... it doesn't work,
       // and we only hear sounds if we start turning the steps on and off
       // and that coincides with transport's loop
-      // HOWEVER! the click track works happily, without needing a re-render
-      // to schedule it
       if (
         tracksRef.current[trackId] &&
         equalSteps(tracksRef.current[trackId].steps, track.steps) &&
         equalRange(tracksRef.current[trackId].range, track.range)
       ) {
-        //console.log("No change", trackID);
+        //console.log("No change", trackId);
         return;
       }
 
@@ -129,7 +102,7 @@ export default function Player(props: {
         (_, i) => i + track.range.lower
       );
 
-      //console.log("Setting up sequence", trackID, sequenceSteps);
+      //console.log("Setting up sequence", trackId, track);
       sequences[trackId] = new Tone.Sequence(
         (time, step) => {
           if (track.steps[step]) {
@@ -139,7 +112,7 @@ export default function Player(props: {
           markActive(trackId, step);
         },
         sequenceSteps,
-        "16n"
+        trackId === "xmasMelody" ? "4n" : "16n"
       ).start(track.range.lower * Tone.Time("4n").toSeconds());
     });
 
@@ -160,17 +133,7 @@ export default function Player(props: {
 
     if (playing) {
       Tone.Transport.start();
-      /*console.log("Started transport", Tone.Transport.state);
-      console.log(
-        "seconds",
-        Tone.Transport.seconds,
-        "loop",
-        Tone.Transport.loop,
-        "loopStart",
-        Tone.Transport.loopStart,
-        "loopEnd",
-        Tone.Transport.loopEnd
-      );*/
+      //console.log("Started transport", Tone.Transport.state);
     } else {
       Tone.Transport.stop();
       markAllInactive();
