@@ -10,9 +10,14 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div>
-      <h1>New room</h1>
+    
+    <><header>
+      <h1>PartyCore. let's get a new party started</h1>
+      </header>
+
+    <div id="newParty">
       <NewRoom />
     </div>
+    </>
   );
 }
