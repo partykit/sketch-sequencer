@@ -34,8 +34,8 @@ export default function Slider(props: {
       className="slider"
       style={{
         position: "relative",
-        marginLeft: "15px",
-        width: "873px",
+        marginLeft: "",
+        width: "",
         backgroundColor: "red",
       }}
     >
