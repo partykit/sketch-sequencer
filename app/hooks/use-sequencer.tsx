@@ -8,7 +8,8 @@ import {
   TrackRange,
   ActiveStep,
   SerializedRoom,
-  defaultSequencerConfig,
+  presetSequencerTracks,
+  AVAILABLE_TRACKS,
   type SequencerTrack,
 } from "party/sequencer-shared";
 
@@ -17,23 +18,41 @@ const PARTY = "sequencer";
 export default function useSequencer(props: {
   partykitHost: string;
   room: string;
+  initialTrackTypes: string[];
 }) {
   const { partykitHost, room } = props;
   const store = syncedStore(docShape);
   const state = useSyncedStore(store);
 
-  const [sequencerTracks, setSequencerTracks] = useState<SequencerTrack[]>(
-    defaultSequencerConfig.tracks
-  );
-
+  /* Initialising!
+     If initialTrackTypes is passed in, we use that to reset the room.
+  */
   useEffect(() => {
-    if ("tracks" in state.config) {
-      setSequencerTracks(state.config["tracks"]);
+    if (props.initialTrackTypes.length > 0) {
+      const serialized: SerializedRoom = {
+        config: {
+          tracks: props.initialTrackTypes.map((trackType) => {
+            return {
+              trackId: trackType,
+              type: trackType,
+            };
+          }),
+        },
+        sequencer: props.initialTrackTypes.map((trackType) => {
+          return {
+            trackId: trackType,
+            steps: Array(TRACK_LENGTH).fill(false),
+            range: { upper: TRACK_LENGTH - 1, lower: 0 },
+          };
+        }),
+      };
+      deserialize(serialized);
     }
-  }, [state.config]);
+  }, [props.initialTrackTypes]);
 
   const allowedTrackId = (trackId: string) => {
-    return sequencerTracks.some((track) => track.trackId === trackId);
+    const tracks = getSequencerTracks();
+    return tracks.some((track: SequencerTrack) => track.trackId === trackId);
   };
 
   const ensureTrackId = (trackId: string) => {
@@ -45,12 +64,7 @@ export default function useSequencer(props: {
     }
   };
 
-  const [activeStep, setActiveStep] = useState<ActiveStep>(
-    sequencerTracks.reduce((acc, sequencerTrack) => {
-      acc[sequencerTrack.trackId] = null;
-      return acc;
-    }, {} as ActiveStep)
-  );
+  const [activeStep, setActiveStep] = useState<ActiveStep>({});
 
   const { provider } = useMemo(() => {
     const ydoc = getYjsDoc(store);
@@ -61,11 +75,12 @@ export default function useSequencer(props: {
   }, []);
 
   const serialize = () => {
+    const tracks = getSequencerTracks();
     const serialized: SerializedRoom = {
       config: {
-        tracks: sequencerTracks,
+        tracks,
       },
-      sequencer: sequencerTracks.map((track) => {
+      sequencer: tracks.map((track: SequencerTrack) => {
         return {
           trackId: track.trackId,
           steps: getSteps(track.trackId),
@@ -94,9 +109,8 @@ export default function useSequencer(props: {
     });
   };
 
-  const save = async () => {
+  const _save = async (serialized: SerializedRoom) => {
     // POST the serialized room to the partykit server
-    const serialized = serialize();
     const response = await fetch(checkpointUrl, {
       method: "POST",
       headers: {
@@ -107,6 +121,9 @@ export default function useSequencer(props: {
     if (!response.ok) {
       throw new Error("Failed to save room");
     }
+  };
+  const save = async () => {
+    _save(serialize());
   };
 
   const load = async () => {
@@ -119,6 +136,16 @@ export default function useSequencer(props: {
     if (success) {
       deserialize(serialized);
     }
+  };
+
+  const getSequencerTracks = () => {
+    return "tracks" in state.config
+      ? state.config.tracks
+      : presetSequencerTracks["partycore"];
+  };
+
+  const setSequencerTracks = (tracks: SequencerTrack[]) => {
+    state.config.tracks = tracks;
   };
 
   const getSteps = (trackId: string) => {
@@ -192,7 +219,7 @@ export default function useSequencer(props: {
 
   return {
     state,
-    sequencerTracks,
+    getSequencerTracks,
     getSteps,
     setStep,
     getRange,

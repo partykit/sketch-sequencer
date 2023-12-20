@@ -1,5 +1,5 @@
 import "~/styles/global.css";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useActionData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import type { MetaFunction } from "partymix";
 import PresenceProvider from "~/presence/presence-context";
@@ -23,8 +23,17 @@ export const meta: MetaFunction = ({ data }) => {
   ];
 };
 
+export async function action({ request }: { request: Request }) {
+  // initial tracks can be passed in via POST
+  const body = await request.formData();
+  const initial = body.get("initial") as string | undefined;
+  const initialTrackTypes = initial ? initial.split(",") : [];
+  return initialTrackTypes;
+}
+
 export default function Games() {
   const { room, partykitHost } = useLoaderData<typeof loader>();
+  const initialTrackTypes = useActionData<string[]>() ?? [];
 
   return (
     <PresenceProvider
@@ -43,7 +52,11 @@ export default function Games() {
 
       <main style={{ minHeight: "100dvh", position: "relative" }}>
         <section id="sequencer">
-          <Sequencer partykitHost={partykitHost} room={room} />
+          <Sequencer
+            partykitHost={partykitHost}
+            room={room}
+            initialTrackTypes={initialTrackTypes}
+          />
         </section>
       </main>
 

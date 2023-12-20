@@ -1,14 +1,15 @@
 import useSequencer from "~/hooks/use-sequencer";
-import { TrackRange } from "party/sequencer-shared";
+import { TrackRange, type SequencerTrack } from "party/sequencer-shared";
 import Track from "~/components/Track";
 import Player from "~/components/Player";
 
 export default function Sequencer(props: {
   partykitHost: string;
   room: string;
+  initialTrackTypes: string[];
 }) {
   const {
-    sequencerTracks,
+    getSequencerTracks,
     getSteps,
     setStep,
     getRange,
@@ -19,6 +20,8 @@ export default function Sequencer(props: {
     save,
     load,
   } = useSequencer(props);
+
+  const sequencerTracks: SequencerTrack[] = getSequencerTracks();
 
   // We need to construct an entire tracks object here to hand to the Player
   const tracks = sequencerTracks.reduce((acc, track) => {
@@ -43,7 +46,7 @@ export default function Sequencer(props: {
           }
           range={getRange(track.trackId)}
           setRange={(range: TrackRange) => setRange(track.trackId, range)}
-          activeStep={activeStep[track.trackId]}
+          activeStep={activeStep[track.trackId] ?? null}
         />
       ))}
       <Player

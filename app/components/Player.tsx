@@ -5,7 +5,6 @@ import {
   TrackRange,
   TRACK_LENGTH,
 } from "party/sequencer-shared";
-import { set } from "zod";
 
 type Track = {
   type: keyof typeof AVAILABLE_TRACKS;
@@ -39,18 +38,13 @@ export default function Player(props: {
   // Initialize the players object
   const players = useRef<Record<string, Tone.Player>>({}).current;
 
-  // Create players
+  // Create players for all available samples
   useEffect(() => {
-    Object.entries(tracks).forEach(([trackId, track]) => {
-      const trackConfig = AVAILABLE_TRACKS[track.type];
-      if (!trackConfig) return;
-      players[trackId] = new Tone.Player(trackConfig.sample).toDestination();
+    Object.entries(AVAILABLE_TRACKS).forEach(([trackId, track]) => {
+      players[trackId] = new Tone.Player(track.sample).toDestination();
     });
-    players._click = new Tone.Player(
-      AVAILABLE_TRACKS["click"].sample
-    ).toDestination();
 
-    // Cleanup function
+    // Cleanup
     return () => {
       Object.values(players).forEach((player) => {
         player.dispose();
@@ -75,7 +69,7 @@ export default function Player(props: {
   useEffect(() => {
     // Set up the click track
     let clickSequence: Tone.Sequence | null = null;
-    if (ENABLE_CLICK_TRACK && players._click) {
+    if (ENABLE_CLICK_TRACK && players.click) {
       console.log("Setting up click track");
       clickSequence = new Tone.Sequence(
         (time, step) => {

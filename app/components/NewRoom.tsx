@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSubmit } from "@remix-run/react";
 import {
   AVAILABLE_TRACKS,
   presetSequencerTracks,
@@ -10,10 +11,13 @@ export default function NewRoom() {
   const [tracks, setTracks] = useState<SequencerTrack[]>(
     presetSequencerTracks["partycore"]
   );
+  const submit = useSubmit();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("TODO: init new room with tracks", tracks);
+  const handleCreateRoom = () => {
+    const newRoomId = Math.random().toString(36).substring(7);
+    const initial = tracks.map((track) => track.type);
+    if (initial.length === 0) return;
+    submit({ initial }, { action: `/rooms/${newRoomId}`, method: "POST" });
   };
 
   const handleAddTrack = (trackType: string, track: Track) => {
@@ -79,6 +83,8 @@ export default function NewRoom() {
           </li>
         ))}
       </ul>
+      <h2>Create Room</h2>
+      <button onClick={handleCreateRoom}>Create</button>
     </>
   );
 }

@@ -49,6 +49,8 @@ export default class SequencerServer implements Party.Server {
       return Response.json(response);
     }
 
+    console.log("returning 405");
+
     return new Response("Method not allowed", { status: 405 });
   }
 }
