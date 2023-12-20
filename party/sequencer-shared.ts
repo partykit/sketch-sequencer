@@ -35,41 +35,49 @@ export const AVAILABLE_TRACKS: Record<string, Track> = {
     name: "partykit team xxx",
     color: "#999999",
     sample: "/assets/PK-XMAS-01.wav",
+    duration: "2n",
   },
   pkxmas02: {
     name: "christmas",
     color: "#999999",
     sample: "/assets/PK-XMAS-02.wav",
+    duration: "2n",
   },
   pkxmas03: {
     name: "merry",
     color: "#999999",
     sample: "/assets/PK-XMAS-03.wav",
+    duration: "2n",
   },
   pkxmas04: {
     name: "a very",
     color: "#999999",
     sample: "/assets/PK-XMAS-04.wav",
+    duration: "2n",
   },
   pkxmas05: {
     name: "all",
     color: "#999999",
     sample: "/assets/PK-XMAS-05.wav",
+    duration: "2n",
   },
   pkxmas06: {
     name: "you",
     color: "#999999",
     sample: "/assets/PK-XMAS-06.wav",
+    duration: "2n",
   },
   pkxmas07: {
     name: "wish",
     color: "#999999",
     sample: "/assets/PK-XMAS-07.wav",
+    duration: "2n",
   },
   pkxmas08: {
     name: "We",
     color: "#999999",
     sample: "/assets/PK-XMAS-08.wav",
+    duration: "2n",
   },
 };
 
