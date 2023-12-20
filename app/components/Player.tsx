@@ -14,6 +14,7 @@ type Track = {
 
 // Config
 const BPM = 140;
+const DEFAULT_STEP_DURATION = "16n"; // https://tonejs.github.io/docs/14.7.77/type/Subdivision
 
 function equalSteps(a: boolean[], b: boolean[]) {
   return a.length === b.length && a.every((v, i) => v === b[i]);
@@ -22,6 +23,10 @@ function equalSteps(a: boolean[], b: boolean[]) {
 function equalRange(a: TrackRange, b: TrackRange) {
   if (!a || !b) return false;
   return a.lower === b.lower && a.upper === b.upper;
+}
+
+function getSubdivision(trackId: string) {
+  return AVAILABLE_TRACKS[trackId]?.duration || DEFAULT_STEP_DURATION;
 }
 
 export default function Player(props: {
@@ -112,7 +117,7 @@ export default function Player(props: {
           markActive(trackId, step);
         },
         sequenceSteps,
-        trackId === "xmasMelody" ? "4n" : "16n"
+        getSubdivision(trackId)
       ).start(track.range.lower * Tone.Time("4n").toSeconds());
     });
 

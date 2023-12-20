@@ -2,6 +2,7 @@ export type Track = {
   name: string;
   color: string;
   sample: string;
+  duration?: string; // must be from https://tonejs.github.io/docs/14.7.77/type/Subdivision
 };
 
 export type TrackRange = {
@@ -18,6 +19,7 @@ export const AVAILABLE_TRACKS: Record<string, Track> = {
     name: "Kick",
     color: "#ec5c3d",
     sample: "/assets/kick.wav",
+    //duration: "4n",
   },
   snare: {
     name: "Snare",
