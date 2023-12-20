@@ -29,30 +29,45 @@ export const AVAILABLE_TRACKS: Record<string, Track> = {
     color: "#6faed7",
     sample: "/assets/hat.wav",
   },
-  click: {
-    name: "Click",
+  pkxmas01: {
+    name: "partykit team xxx",
     color: "#999999",
-    sample: "/assets/click.wav",
+    sample: "/assets/PK-XMAS-01.wav",
   },
-  xmasMelody: {
-    name: "Xmas Melody",
-    color: "#660000",
-    sample: "/assets/xmas-melody.wav",
+  pkxmas02: {
+    name: "christmas",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-02.wav",
   },
-  xmasKick: {
-    name: "Xmas Kick",
-    color: "#660000",
-    sample: "/assets/xmas-kick.wav",
+  pkxmas03: {
+    name: "merry",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-03.wav",
   },
-  xmasSnare: {
-    name: "Xmas Snare",
-    color: "#660000",
-    sample: "/assets/xmas-snare.wav",
+  pkxmas04: {
+    name: "a very",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-04.wav",
   },
-  xmasHat: {
-    name: "Xmas Hat",
-    color: "#660000",
-    sample: "/assets/xmas-hat.wav",
+  pkxmas05: {
+    name: "all",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-05.wav",
+  },
+  pkxmas06: {
+    name: "you",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-06.wav",
+  },
+  pkxmas07: {
+    name: "wish",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-07.wav",
+  },
+  pkxmas08: {
+    name: "We",
+    color: "#999999",
+    sample: "/assets/PK-XMAS-08.wav",
   },
 };
 
