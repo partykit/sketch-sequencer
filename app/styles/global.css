@@ -653,7 +653,7 @@ main {
 #newParty > button {
   box-sizing: border-box;
   color: var(--ui-color);
-  background: transparent;
+  background: var(--background-color);
   height: 44px;
   border-radius: 22px;
   border: 1px solid;
