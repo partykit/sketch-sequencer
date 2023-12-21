@@ -56,7 +56,20 @@ html {
 @media (prefers-color-scheme: light) {
   html {
     color: var(--background-color);
-    background: var(--ui-color);
+    background-color: var(--ui-color);
+  }
+}
+
+html#xmas {
+  background-image: url("/assets/kevin-mueller-gI34zzSks8E-unsplash.dark.jpg");
+  background-attachment: fixed;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+@media (prefers-color-scheme: light) {
+  html#xmas {
+    background-image: url("/assets/kevin-mueller-gI34zzSks8E-unsplash.jpg");
   }
 }
 

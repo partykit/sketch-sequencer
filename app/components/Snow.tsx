@@ -25,9 +25,9 @@ export default function Snow() {
         <Confetti
             width={windowDimensions.width}
             height={windowDimensions.height}
-            colors={["#e56137", "#4ab44f"]}
+            colors={["rgba(150,150,150,0.6", "rgba(100,100,100,0.3", "rgba(220,220,220,0.6"]}
             numberOfPieces={50}
-            initialVelocityY={8}
+            initialVelocityY={3}
             drawShape={ctx => {
                 const centerX = 12;
                 const centerY = 12;
