@@ -162,7 +162,7 @@ main {
   justify-content: center;
   gap: 30px;
   overflow: hidden;
-  padding: 5px;
+  padding: 5px 5px 45px;
 }
 
 /*

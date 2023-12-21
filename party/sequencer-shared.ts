@@ -108,6 +108,7 @@ export const presetSequencerTracks = {
       } as SequencerTrack)
   ),
   festive: [
+    "pkxmas09",
     "pkxmas08",
     "pkxmas07",
     "pkxmas06",
