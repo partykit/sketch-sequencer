@@ -53,31 +53,31 @@ export const AVAILABLE_TRACKS: Record<string, Track> = {
     name: "a very",
     color: "#999999",
     sample: "/assets/PK-XMAS-04.mp3",
-    duration: "2n",
+    duration: "4n",
   },
   pkxmas05: {
     name: "all",
     color: "#999999",
     sample: "/assets/PK-XMAS-05.mp3",
-    duration: "2n",
+    duration: "4n",
   },
   pkxmas06: {
     name: "you",
     color: "#999999",
     sample: "/assets/PK-XMAS-06.mp3",
-    duration: "2n",
+    duration: "4n",
   },
   pkxmas07: {
     name: "wish",
     color: "#999999",
     sample: "/assets/PK-XMAS-07.mp3",
-    duration: "2n",
+    duration: "4n",
   },
   pkxmas08: {
     name: "We",
     color: "#999999",
     sample: "/assets/PK-XMAS-08.mp3",
-    duration: "2n",
+    duration: "4n",
   },
 };
 
