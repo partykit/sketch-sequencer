@@ -73,6 +73,10 @@ html#xmas {
   }
 }
 
+html#xmas header > h1::before {
+  content: "🎄 ";
+}
+
 html * {
   font-size: inherit;
   font-weight: inherit;
