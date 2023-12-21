@@ -19,7 +19,18 @@ export default function NewRoom() {
       newRoomId.length > 0
         ? newRoomId
         : Math.random().toString(36).substring(7);
-    const initial = tracks.map((track) => track.type);
+    let initial = tracks.map((track) => track.type);
+
+    // A couple of rooms are fixed to certain track presets
+    switch (roomId) {
+      case "1999":
+        initial = presetSequencerTracks["partycore"].map((track) => track.type);
+        break;
+      case "festive":
+        initial = presetSequencerTracks["festive"].map((track) => track.type);
+        break;
+    }
+
     if (initial.length === 0) return;
     submit({ initial }, { action: `/rooms/${roomId}`, method: "POST" });
   };
@@ -39,9 +50,7 @@ export default function NewRoom() {
     });
   };
 
-  const handleLoadPresent = (
-    presetName: keyof typeof presetSequencerTracks
-  ) => {
+  const handleLoadPreset = (presetName: keyof typeof presetSequencerTracks) => {
     if (!presetSequencerTracks[presetName]) return;
     setTracks(presetSequencerTracks[presetName]);
   };
@@ -77,7 +86,7 @@ export default function NewRoom() {
             <h3>{presetName}</h3>
             <button
               onClick={() =>
-                handleLoadPresent(
+                handleLoadPreset(
                   presetName as keyof typeof presetSequencerTracks
                 )
               }

@@ -1,13 +1,7 @@
 import useSequencer from "~/hooks/use-sequencer";
-import {
-  TrackRange,
-  type SequencerTrack,
-  presetSequencerTracks,
-} from "party/sequencer-shared";
+import { TrackRange, type SequencerTrack } from "party/sequencer-shared";
 import Track from "~/components/Track";
 import Player from "~/components/Player";
-import Snow from "~/components/Snow";
-import { useEffect } from "react";
 
 export default function Sequencer(props: {
   partykitHost: string;
@@ -30,20 +24,6 @@ export default function Sequencer(props: {
 
   const sequencerTracks: SequencerTrack[] = getSequencerTracks();
 
-  // We need to check where sequencerTracks matches presetSequencerTracks["festive"]
-  const isFestive = sequencerTracks.every((track, index) => {
-    return track.trackId === presetSequencerTracks["festive"][index].trackId;
-  });
-
-  useEffect(() => {
-    if (isFestive) {
-      document.documentElement.id = "xmas";
-    }
-    () => {
-      document.documentElement.id = "";
-    };
-  }, [isFestive]);
-
   // We need to construct an entire tracks object here to hand to the Player
   const tracks = sequencerTracks.reduce((acc, track) => {
     acc[track.trackId] = {
@@ -60,7 +40,6 @@ export default function Sequencer(props: {
 
   return (
     <>
-      {isFestive && <Snow />}
       {sequencerTracks.map((track, index) => (
         <Track
           key={index}
