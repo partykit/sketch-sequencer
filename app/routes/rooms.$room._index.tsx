@@ -37,7 +37,7 @@ export default function Games() {
   const { room, partykitHost } = useLoaderData<typeof loader>();
   const initialTrackTypes = useActionData<string[]>() ?? [];
 
-  const isFestive = room.startsWith("festive");
+  const isFestive = room.startsWith("carol");
 
   useLayoutEffect(() => {
     if (isFestive) {
