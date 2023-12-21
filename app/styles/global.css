@@ -709,6 +709,14 @@ main {
   cursor: pointer;
 }
 
+#newParty label {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
+}
+
 #newParty ul:nth-child(4) li {
   background: transparent;
   color: var(--ui-color);
