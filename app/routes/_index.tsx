@@ -15,6 +15,9 @@ export default function Index() {
         <li>
           <a href="/rooms/1999">PartyCore.</a>
         </li>
+        <li>
+          <a href="/rooms/1999">❄️ A Partykit Christmas Carol ❄️</a>
+        </li>
       </ul>
       <footer>
         <p>

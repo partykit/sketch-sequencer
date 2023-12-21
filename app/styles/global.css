@@ -126,7 +126,7 @@ footer a {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .partymix_index ul a {
