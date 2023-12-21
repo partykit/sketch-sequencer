@@ -626,6 +626,10 @@ main {
 /*   z-index: 20; */
 }
 
+#player {
+  margin-right: auto;
+}
+
 #player button {
   display: flex;
   flex-direction: row;
@@ -645,7 +649,14 @@ main {
   font-size: 23px;
   line-height: 1;
   letter-spacing: 0.0125em;
+  text-align: center;
   cursor: pointer;
+}
+
+#player button.playing {
+  font-size: 15px;
+  padding: 0;
+  width: 44px;
 }
 
 

@@ -40,6 +40,11 @@ export default function Sequencer(props: {
 
   return (
     <>
+      <Player
+        tracks={tracks}
+        markActive={markActive}
+        markAllInactive={markAllInactive}
+      />
       {sequencerTracks.map((track, index) => (
         <Track
           key={index}
@@ -54,11 +59,6 @@ export default function Sequencer(props: {
           activeStep={activeStep[track.trackId] ?? null}
         />
       ))}
-      <Player
-        tracks={tracks}
-        markActive={markActive}
-        markAllInactive={markAllInactive}
-      />
       <div id="checkpoint" style={{ display: "none" }}>
         <button onClick={save}>Save</button>
         <button onClick={load}>Load</button>

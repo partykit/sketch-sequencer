@@ -151,8 +151,8 @@ export default function Player(props: {
         <button onClick={() => setPrepared(true)}>Allow Audio</button>
       )}
       {prepared === true && (
-        <button onClick={() => setPlaying((prev) => !prev)}>
-          {playing ? "Pause" : "Play"}
+        <button class="playing" onClick={() => setPlaying((prev) => !prev)}>
+          {playing ? "■" : "►"}
         </button>
       )}
     </div>
