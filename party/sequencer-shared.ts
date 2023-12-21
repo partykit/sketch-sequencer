@@ -101,7 +101,16 @@ export const presetSequencerTracks = {
         type: trackId,
       } as SequencerTrack)
   ),
-  festive: ["xmasMelody", "xmasKick", "xmasSnare", "xmasHat"].map(
+  festive: [
+    "pkxmas08",
+    "pkxmas07",
+    "pkxmas06",
+    "pkxmas05",
+    "pkxmas04",
+    "pkxmas03",
+    "pkxmas02",
+    "pkxmas01",
+  ].map(
     (trackId) =>
       ({
         trackId,
