@@ -73,6 +73,10 @@ html#xmas {
   }
 }
 
+html#xmas header > h1::before {
+  content: "🎄 ";
+}
+
 html * {
   font-size: inherit;
   font-weight: inherit;
@@ -707,6 +711,14 @@ main {
   width: 6em;
   padding: 0 20px 2px;
   cursor: pointer;
+}
+
+#newParty label {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 10px;
 }
 
 #newParty ul:nth-child(4) li {

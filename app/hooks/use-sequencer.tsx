@@ -29,6 +29,8 @@ export default function useSequencer(props: {
      If initialTrackTypes is passed in, we use that to reset the room.
   */
   useEffect(() => {
+    if (!synced) return;
+    
     if (props.initialTrackTypes.length > 0) {
       const serialized: SerializedRoom = {
         config: {
@@ -49,7 +51,7 @@ export default function useSequencer(props: {
       };
       deserialize(serialized);
     }
-  }, [props.initialTrackTypes]);
+  }, [synced, props.initialTrackTypes]);
 
   const allowedTrackId = (trackId: string) => {
     const tracks = getSequencerTracks();
@@ -103,6 +105,7 @@ export default function useSequencer(props: {
   const checkpointUrl = `${protocol}://${partykitHost}/parties/${PARTY}/${room}/checkpoint`;
 
   const deserialize = (serialized: SerializedRoom) => {
+    console.log("Deserializing", serialized);
     setSequencerTracks(serialized.config.tracks);
     serialized.sequencer.forEach((track) => {
       const { trackId, steps, range } = track;
