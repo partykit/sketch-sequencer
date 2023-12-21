@@ -21,12 +21,13 @@ export default function NewRoom() {
         : Math.random().toString(36).substring(7);
     let initial = tracks.map((track) => track.type);
 
-    // A couple of rooms are fixed to certain track presets
+    // A couple of rooms are fixed to certain track presets to avoid
+    // them being overwritten in production
     switch (roomId) {
       case "1999":
         initial = presetSequencerTracks["partycore"].map((track) => track.type);
         break;
-      case "festive":
+      case "carol":
         initial = presetSequencerTracks["festive"].map((track) => track.type);
         break;
     }
