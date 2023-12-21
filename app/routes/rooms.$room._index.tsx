@@ -2,9 +2,11 @@ import "~/styles/global.css";
 import { useLoaderData, useActionData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import type { MetaFunction } from "partymix";
+import { useLayoutEffect } from "react";
 import PresenceProvider from "~/presence/presence-context";
 import Sequencer from "~/components/Sequencer";
 import Cursors from "~/components/Cursors";
+import Snow from "~/components/Snow";
 
 type LoaderData = {
   room: string;
@@ -35,6 +37,17 @@ export default function Games() {
   const { room, partykitHost } = useLoaderData<typeof loader>();
   const initialTrackTypes = useActionData<string[]>() ?? [];
 
+  const isFestive = room.startsWith("festive");
+
+  useLayoutEffect(() => {
+    if (isFestive) {
+      document.documentElement.id = "xmas";
+    }
+    () => {
+      document.documentElement.id = "";
+    };
+  }, [isFestive]);
+
   return (
     <PresenceProvider
       host={partykitHost}
@@ -45,6 +58,7 @@ export default function Games() {
       }}
     >
       <Cursors />
+      {isFestive && <Snow />}
 
       <header>
         <h1>PartyCore.</h1>

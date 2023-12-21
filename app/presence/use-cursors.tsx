@@ -27,7 +27,7 @@ We can track and display cursors relative to one of three reference frames:
 - @TODO a div: a specific div element
 */
 export default function useCursorTracking(
-  within: "window" | "document" = "window",
+  within: "window" | "document" = "window"
 ) {
   const { myId, myself, otherUsers, updatePresence } = usePresence((state) => {
     return {
@@ -162,7 +162,6 @@ export default function useCursorTracking(
       y: localCursor.y / bounds.y,
       pointer: localCursor.pointer,
     } as Cursor;
-
     updatePresence({ cursor });
   }, [
     windowCursor,
